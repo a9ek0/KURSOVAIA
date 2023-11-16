@@ -1,0 +1,282 @@
+/********************************************************************************
+** Form generated from reading UI file 'ploatbuilder.ui'
+**
+** Created by: Qt User Interface Compiler version 6.6.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_PLOATBUILDER_H
+#define UI_PLOATBUILDER_H
+
+#include <QtCore/QVariant>
+#include <QtGui/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_ploatBuilder
+{
+public:
+    QAction *actionSave;
+    QAction *actionSave_ploat;
+    QAction *actionopen;
+    QAction *actionBlack;
+    QAction *actionBlue;
+    QAction *actionGreen;
+    QAction *actionRed;
+    QAction *actionYellow;
+    QAction *actionDraw_step;
+    QAction *actionNumber_of_plotted_points;
+    QAction *actionAnimations;
+    QAction *actionDot_labels;
+    QAction *actionParameters;
+    QWidget *centralwidget;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label;
+    QLineEdit *function;
+    QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *label_4;
+    QLineEdit *minRange;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_5;
+    QLineEdit *maxRange;
+    QCheckBox *multyPloats;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *verticalSpacer_2;
+    QPushButton *buildButton;
+    QWidget *verticalLayoutWidget_2;
+    QVBoxLayout *GRAPH;
+    QMenuBar *menubar;
+    QMenu *menuFile;
+    QMenu *menuSetings;
+    QStatusBar *statusbar;
+
+    void setupUi(QMainWindow *ploatBuilder)
+    {
+        if (ploatBuilder->objectName().isEmpty())
+            ploatBuilder->setObjectName("ploatBuilder");
+        ploatBuilder->setEnabled(true);
+        ploatBuilder->resize(810, 540);
+        ploatBuilder->setMinimumSize(QSize(810, 540));
+        ploatBuilder->setMaximumSize(QSize(810, 540));
+        actionSave = new QAction(ploatBuilder);
+        actionSave->setObjectName("actionSave");
+        actionSave_ploat = new QAction(ploatBuilder);
+        actionSave_ploat->setObjectName("actionSave_ploat");
+        actionopen = new QAction(ploatBuilder);
+        actionopen->setObjectName("actionopen");
+        actionBlack = new QAction(ploatBuilder);
+        actionBlack->setObjectName("actionBlack");
+        actionBlue = new QAction(ploatBuilder);
+        actionBlue->setObjectName("actionBlue");
+        actionGreen = new QAction(ploatBuilder);
+        actionGreen->setObjectName("actionGreen");
+        actionRed = new QAction(ploatBuilder);
+        actionRed->setObjectName("actionRed");
+        actionYellow = new QAction(ploatBuilder);
+        actionYellow->setObjectName("actionYellow");
+        actionDraw_step = new QAction(ploatBuilder);
+        actionDraw_step->setObjectName("actionDraw_step");
+        actionNumber_of_plotted_points = new QAction(ploatBuilder);
+        actionNumber_of_plotted_points->setObjectName("actionNumber_of_plotted_points");
+        actionAnimations = new QAction(ploatBuilder);
+        actionAnimations->setObjectName("actionAnimations");
+        actionDot_labels = new QAction(ploatBuilder);
+        actionDot_labels->setObjectName("actionDot_labels");
+        actionParameters = new QAction(ploatBuilder);
+        actionParameters->setObjectName("actionParameters");
+        centralwidget = new QWidget(ploatBuilder);
+        centralwidget->setObjectName("centralwidget");
+        verticalLayoutWidget = new QWidget(centralwidget);
+        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
+        verticalLayoutWidget->setGeometry(QRect(10, 10, 232, 481));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        label = new QLabel(verticalLayoutWidget);
+        label->setObjectName("label");
+
+        horizontalLayout_3->addWidget(label);
+
+        function = new QLineEdit(verticalLayoutWidget);
+        function->setObjectName("function");
+        function->setMaximumSize(QSize(185, 16777215));
+
+        horizontalLayout_3->addWidget(function);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        verticalLayout->addItem(verticalSpacer);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName("horizontalLayout_5");
+        label_4 = new QLabel(verticalLayoutWidget);
+        label_4->setObjectName("label_4");
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy);
+        label_4->setMaximumSize(QSize(35, 16777215));
+
+        horizontalLayout_5->addWidget(label_4);
+
+        minRange = new QLineEdit(verticalLayoutWidget);
+        minRange->setObjectName("minRange");
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(minRange->sizePolicy().hasHeightForWidth());
+        minRange->setSizePolicy(sizePolicy1);
+        minRange->setMaximumSize(QSize(185, 16777215));
+        minRange->setLayoutDirection(Qt::RightToLeft);
+
+        horizontalLayout_5->addWidget(minRange);
+
+
+        verticalLayout->addLayout(horizontalLayout_5);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setObjectName("horizontalLayout_6");
+        label_5 = new QLabel(verticalLayoutWidget);
+        label_5->setObjectName("label_5");
+        label_5->setMaximumSize(QSize(35, 16777215));
+
+        horizontalLayout_6->addWidget(label_5);
+
+        maxRange = new QLineEdit(verticalLayoutWidget);
+        maxRange->setObjectName("maxRange");
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(maxRange->sizePolicy().hasHeightForWidth());
+        maxRange->setSizePolicy(sizePolicy2);
+        maxRange->setMaximumSize(QSize(185, 16777215));
+
+        horizontalLayout_6->addWidget(maxRange);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
+
+        multyPloats = new QCheckBox(verticalLayoutWidget);
+        multyPloats->setObjectName("multyPloats");
+        multyPloats->setChecked(false);
+
+        verticalLayout->addWidget(multyPloats);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName("horizontalLayout");
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_2);
+
+        buildButton = new QPushButton(verticalLayoutWidget);
+        buildButton->setObjectName("buildButton");
+        sizePolicy1.setHeightForWidth(buildButton->sizePolicy().hasHeightForWidth());
+        buildButton->setSizePolicy(sizePolicy1);
+
+        verticalLayout->addWidget(buildButton);
+
+        verticalLayoutWidget_2 = new QWidget(centralwidget);
+        verticalLayoutWidget_2->setObjectName("verticalLayoutWidget_2");
+        verticalLayoutWidget_2->setGeometry(QRect(250, 20, 551, 451));
+        GRAPH = new QVBoxLayout(verticalLayoutWidget_2);
+        GRAPH->setObjectName("GRAPH");
+        GRAPH->setContentsMargins(0, 0, 0, 0);
+        ploatBuilder->setCentralWidget(centralwidget);
+        menubar = new QMenuBar(ploatBuilder);
+        menubar->setObjectName("menubar");
+        menubar->setGeometry(QRect(0, 0, 810, 21));
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName("menuFile");
+        menuSetings = new QMenu(menubar);
+        menuSetings->setObjectName("menuSetings");
+        ploatBuilder->setMenuBar(menubar);
+        statusbar = new QStatusBar(ploatBuilder);
+        statusbar->setObjectName("statusbar");
+        ploatBuilder->setStatusBar(statusbar);
+
+        menubar->addAction(menuFile->menuAction());
+        menubar->addAction(menuSetings->menuAction());
+        menuFile->addAction(actionopen);
+        menuFile->addSeparator();
+        menuFile->addAction(actionSave);
+        menuFile->addSeparator();
+        menuFile->addAction(actionSave_ploat);
+        menuSetings->addAction(actionParameters);
+
+        retranslateUi(ploatBuilder);
+
+        QMetaObject::connectSlotsByName(ploatBuilder);
+    } // setupUi
+
+    void retranslateUi(QMainWindow *ploatBuilder)
+    {
+        ploatBuilder->setWindowTitle(QCoreApplication::translate("ploatBuilder", "ploatBuilder", nullptr));
+        actionSave->setText(QCoreApplication::translate("ploatBuilder", "Save image", nullptr));
+#if QT_CONFIG(shortcut)
+        actionSave->setShortcut(QCoreApplication::translate("ploatBuilder", "Ctrl+Shift+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionSave_ploat->setText(QCoreApplication::translate("ploatBuilder", "Save ploat", nullptr));
+#if QT_CONFIG(shortcut)
+        actionSave_ploat->setShortcut(QCoreApplication::translate("ploatBuilder", "Ctrl+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionopen->setText(QCoreApplication::translate("ploatBuilder", "Open", nullptr));
+        actionBlack->setText(QCoreApplication::translate("ploatBuilder", "Black", nullptr));
+        actionBlue->setText(QCoreApplication::translate("ploatBuilder", "Blue", nullptr));
+        actionGreen->setText(QCoreApplication::translate("ploatBuilder", "Green", nullptr));
+        actionRed->setText(QCoreApplication::translate("ploatBuilder", "Red", nullptr));
+        actionYellow->setText(QCoreApplication::translate("ploatBuilder", "Yellow", nullptr));
+        actionDraw_step->setText(QCoreApplication::translate("ploatBuilder", "Draw step", nullptr));
+        actionNumber_of_plotted_points->setText(QCoreApplication::translate("ploatBuilder", "Number of plotted points", nullptr));
+        actionAnimations->setText(QCoreApplication::translate("ploatBuilder", "Animations", nullptr));
+        actionDot_labels->setText(QCoreApplication::translate("ploatBuilder", "Dot labels", nullptr));
+        actionParameters->setText(QCoreApplication::translate("ploatBuilder", "Parameters", nullptr));
+        label->setText(QCoreApplication::translate("ploatBuilder", "f(x) =", nullptr));
+        function->setInputMask(QString());
+        function->setText(QString());
+        function->setPlaceholderText(QCoreApplication::translate("ploatBuilder", "cos(\321\205) + 2", nullptr));
+        label_4->setText(QCoreApplication::translate("ploatBuilder", "Min =", nullptr));
+        minRange->setInputMask(QString());
+        minRange->setText(QCoreApplication::translate("ploatBuilder", "-10", nullptr));
+        label_5->setText(QCoreApplication::translate("ploatBuilder", "Max =", nullptr));
+        maxRange->setText(QCoreApplication::translate("ploatBuilder", "10", nullptr));
+        multyPloats->setText(QCoreApplication::translate("ploatBuilder", "Save previous charts", nullptr));
+        buildButton->setText(QCoreApplication::translate("ploatBuilder", "Build", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("ploatBuilder", "File", nullptr));
+        menuSetings->setTitle(QCoreApplication::translate("ploatBuilder", "Setings", nullptr));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class ploatBuilder: public Ui_ploatBuilder {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_PLOATBUILDER_H
