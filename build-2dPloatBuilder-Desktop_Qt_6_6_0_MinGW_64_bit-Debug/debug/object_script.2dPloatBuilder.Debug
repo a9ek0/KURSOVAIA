@@ -1,0 +1,10 @@
+debug/function.o
+debug/graphdrawer.o
+debug/main.o
+debug/parameters.o
+debug/parser.o
+debug/ploatbuilder.o
+debug/thread.o
+debug/moc_graphdrawer.o
+debug/moc_parameters.o
+debug/moc_ploatbuilder.o

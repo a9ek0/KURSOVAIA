@@ -46,13 +46,17 @@ void Parser::toPostfix()
     QRegularExpression re("\\s* \\s*");
     QStringList tokens = expression.split(re);
     tokens.removeAll("");
-    //dobavit unarnie operatori
+
     QStack<QString> operator_stack;
     QStack<QString> tang_stack;
+
     int brace = 0;
+    QString op = " ";
     QString tang = " ";
+
     foreach (QString token, tokens) {
         if(token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){ //--exp
+            op = token;
             if(tang != " "){
                 tang_stack.push(tang);
             }
@@ -61,6 +65,7 @@ void Parser::toPostfix()
         if(token.contains(QRegularExpression("[(]"))){
             operator_stack.push("(");
             brace++;
+            op = "(";
         } else if(token.contains(QRegularExpression("[)]")) && brace > 0){
             while (operator_stack.top() != "(") {
                 normalized_str += operator_stack.pop();
@@ -69,6 +74,7 @@ void Parser::toPostfix()
 
             operator_stack.pop();
             brace--;
+            op = ")";
 
             if(tang != " "){
                 normalized_str += tang;
@@ -79,16 +85,29 @@ void Parser::toPostfix()
                 }
                 continue;
             }
-
         } else if(token.contains(QRegularExpression("[+\\-*/)]"))){
+            if(op.contains(QRegularExpression("[+-*/)]"))){
+                error = "Проверьте знаки!";
+                throw error;
+            }
             while (!operator_stack.isEmpty() && (priority[token] <= priority[operator_stack.top()])) {
                 normalized_str += operator_stack.pop();
                 normalized_str += ' ';
             }
+            if(token.contains(QRegularExpression("[+\\*/)]")) && op == "(") {
+                error = "2Проверьте знаки!";
+                throw error;
+            } else if(token == "-" && op == "("){
+                operator_stack.push("neg");
+                continue;
+            }
+            op = token;
+
             operator_stack.push(token);
 
         } else{
             if(!token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){
+                op = token;
                 if(token == "p") {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
@@ -104,6 +123,7 @@ void Parser::toPostfix()
             }
         }
     }
+
 
     if(normalized_str.isEmpty()){
         error = "Ошибка!";

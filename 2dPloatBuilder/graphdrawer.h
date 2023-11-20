@@ -13,7 +13,7 @@
 
 #include <cmath>
 
-#include "Function.h"
+#include "function.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GraphDrawer; }
@@ -24,24 +24,23 @@ class GraphDrawer : public QGraphicsView
     Q_OBJECT
 public:
     explicit GraphDrawer(QWidget *parent = 0);
+    QPen getPenColor();
     void setMinBoarder(double minBoarder);
     void setMaxBoarder(double maxBoarder);
     void setPenColor(int color);
     void setPointsNum(int pointsNum);
     void setDrawStep(double drawStep);
-    void drawPlot(Function *func, double drawStep, int pointsNum, int multyPloats);
-    void numberAxes();
+    void drawPlot(QLayout *ploatLayout, Function *func, double drawStep, int pointsNum, int multyPloats);
+    void numberAxes(double yMaxBoarder, double yMinBoarder);
     void saveImage(QString fileName);
     double getMinBoarder();
     double getMaxBoarder();
-    QPen getPenColor();
-
     void deleteItemsFromGroup(QGraphicsItemGroup *group_1);
     ~GraphDrawer();
 
 signals:
 
-private slots:
+public slots:
     void slotAlarmTimer();
 
 private:
@@ -50,6 +49,7 @@ private:
     QGraphicsItemGroup  *group_2;
     QGraphicsItemGroup  *group_3;
     QTimer              *timer;
+    QVector<QGraphicsLineItem*> lines;
 
 private:
     void resizeEvent(QResizeEvent *event);

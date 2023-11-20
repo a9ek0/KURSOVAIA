@@ -30,10 +30,6 @@ double Function::calculateFunction(double x)
             if(token == '+'){
                 variables_stack.push(QString::number(variables_stack.pop().toDouble() + result));
             } else if(token == '-'){
-                //if(variables_stack.top() == "(" )
-                //{ qDebug() << "qwe";
-                //variables_stack.push(QString::number(result * (-1)));}
-                //else
                 variables_stack.push(QString::number(variables_stack.pop().toDouble() - result));
             } else if(token == '*'){
                 variables_stack.push(QString::number(variables_stack.pop().toDouble() * result));
@@ -50,7 +46,7 @@ double Function::calculateFunction(double x)
     }
 
     result = variables_stack.pop().toDouble();
-    if (variables_stack.top().contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))) { //--exp
+    if (variables_stack.top().contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs neg]"))) { //--exp
         result = calcualteTriganometry(variables_stack.pop(), result);
     }
 
@@ -79,6 +75,8 @@ double Function::calcualteTriganometry(QString function, double operand) {
         return qSqrt(operand);
     } else if (function == "fabs") {
         return qFabs(operand);
+    } else if (function == "neg") {
+        return operand * (-1);
     }
 
     return 0.0;

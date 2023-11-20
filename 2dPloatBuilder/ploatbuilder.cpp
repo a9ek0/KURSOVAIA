@@ -9,8 +9,6 @@ ploatBuilder::ploatBuilder(QWidget *parent)
 
     plot   = new GraphDrawer();
     ui->GRAPH->addWidget(plot);
-
-
 }
 
 void ploatBuilder::setGraphicsColor(int color)
@@ -45,9 +43,9 @@ void ploatBuilder::on_buildButton_clicked()
         return;
     }
 
-    //plot->setPenColor(ui->Colors->currentIndex());
     plot->setPenColor(graphicsColor);
-    plot->drawPlot(func, drawStep, pointsNum, multyPloats);
+
+    plot->drawPlot(ui->GRAPH, func, drawStep, pointsNum, multyPloats);
     ui->GRAPH->addWidget(plot);
 }
 
@@ -191,4 +189,5 @@ void ploatBuilder::on_multyPloats_stateChanged(int arg1)
 {
     this->multyPloats = arg1;
 }
+
 

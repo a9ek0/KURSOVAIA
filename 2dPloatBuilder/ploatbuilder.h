@@ -8,12 +8,11 @@
 #include <QPixMap>
 #include <QLayout>
 #include <QVBoxLayout>
+#include <QtConcurrent/QtConcurrent>
 #include <QLayoutItem>
 #include <QFileDialog>
 #include <QImageWriter>
 #include <QtPrintSupport/QPrintDialog>
-
-#include <thread>
 
 #include "graphdrawer.h"
 #include "parser.h"
@@ -55,6 +54,10 @@ private slots:
     void on_actionParameters_triggered();
 
     void on_multyPloats_stateChanged(int arg1);
+
+    //void onThreadStarted();
+
+    //void drawPlotOtherThread();
 
 public slots:
     void receiveData(int color, int pointsNum, double drawStep);

@@ -14,14 +14,16 @@ SOURCES += \
     main.cpp \
     parameters.cpp \
     parser.cpp \
-    ploatbuilder.cpp
+    ploatbuilder.cpp \
+    thread.cpp
 
 HEADERS += \
     function.h \
     graphdrawer.h \
     parameters.h \
     parser.h \
-    ploatbuilder.h
+    ploatbuilder.h \
+    thread.h
 
 FORMS += \
     parameters.ui \
