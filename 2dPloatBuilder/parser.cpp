@@ -16,12 +16,13 @@ void Parser::toPostfix()
     QString error;
     QString normalized_str;
 
-
+    //Set priority
     priority["+"] = 1;
     priority["-"] = 1;
     priority["*"] = 2;
     priority["/"] = 2;
 
+    //Preparing an expression
     this->expression = expression.toLower();
     expression.replace(QRegularExpression("\\s+"), "");
 
@@ -44,70 +45,73 @@ void Parser::toPostfix()
     this->expression = replaceAllOccurrences(expression, "fabs", "fabs ");
 
     QRegularExpression re("\\s* \\s*");
+
     QStringList tokens = expression.split(re);
     tokens.removeAll("");
 
-    QStack<QString> operator_stack;
-    QStack<QString> tang_stack;
+    QStack<QString> operatorStack;
+    QString previousToken   = " ";
 
-    int brace = 0;
-    QString op = " ";
-    QString tang = " ";
+    QStack<QString> mathStack;
+    QString mathExpr            = " ";
 
+    int brace               = 0;
+
+    //Generating a postfix notation of a given expression
     foreach (QString token, tokens) {
         if(token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){ //--exp
-            op = token;
-            if(tang != " "){
-                tang_stack.push(tang);
+            previousToken = token;
+            if(mathExpr != " "){
+                mathStack.push(mathExpr);
             }
-            tang = token;
+            mathExpr = token;
         }
         if(token.contains(QRegularExpression("[(]"))){
-            operator_stack.push("(");
+            operatorStack.push("(");
             brace++;
-            op = "(";
+            previousToken = "(";
         } else if(token.contains(QRegularExpression("[)]")) && brace > 0){
-            while (operator_stack.top() != "(") {
-                normalized_str += operator_stack.pop();
+            while (operatorStack.top() != "(") {
+                normalized_str += operatorStack.pop();
                 normalized_str += ' ';
             }
 
-            operator_stack.pop();
+            operatorStack.pop();
             brace--;
-            op = ")";
+            previousToken = ")";
 
-            if(tang != " "){
-                normalized_str += tang;
+            if(mathExpr != " "){
+                normalized_str += mathExpr;
                 normalized_str += ' ';
-                tang = " ";
-                if(!tang_stack.empty()){
-                    tang = tang_stack.pop();
+                mathExpr = " ";
+                if(!mathStack.empty()){
+                    mathExpr = mathStack.pop();
                 }
                 continue;
             }
         } else if(token.contains(QRegularExpression("[+\\-*/)]"))){
-            if(op.contains(QRegularExpression("[+-*/)]"))){
+            if(previousToken.contains(QRegularExpression("[+-*/)]"))){
                 error = "Проверьте знаки!";
                 throw error;
             }
-            while (!operator_stack.isEmpty() && (priority[token] <= priority[operator_stack.top()])) {
-                normalized_str += operator_stack.pop();
+            while (!operatorStack.isEmpty() && (priority[token] <= priority[operatorStack.top()])) {
+                normalized_str += operatorStack.pop();
                 normalized_str += ' ';
             }
-            if(token.contains(QRegularExpression("[+\\*/)]")) && op == "(") {
+            if(token.contains(QRegularExpression("[+\\*/)]")) && previousToken == "(") {
                 error = "2Проверьте знаки!";
                 throw error;
-            } else if(token == "-" && op == "("){
-                operator_stack.push("neg");
+            } else if(token == "-" && previousToken == "("){
+                operatorStack.push("neg");
                 continue;
             }
-            op = token;
+            previousToken = token;
 
-            operator_stack.push(token);
+            operatorStack.push(token);
 
         } else{
             if(!token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){
-                op = token;
+                previousToken = token;
                 if(token == "p") {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
@@ -124,33 +128,24 @@ void Parser::toPostfix()
         }
     }
 
-
     if(normalized_str.isEmpty()){
-        error = "Ошибка!";
+        error = "Отсутсвует выражение!";
         throw error;
     }
 
-    while (!operator_stack.isEmpty()) {
-        if(operator_stack.top() == "(" || operator_stack.top() == ")"){
+    //Putting the remaining operators into a postfix expression
+    while (!operatorStack.isEmpty()) {
+        if(operatorStack.top() == "(" || operatorStack.top() == ")"){
             error = "Проверьте скобки!";
             throw error;
         }
-        normalized_str.append(operator_stack.top());
-        operator_stack.pop();
+        normalized_str.append(operatorStack.top());
+        operatorStack.pop();
         normalized_str += ' ';
     }
 
     this->expression = normalized_str;
     qDebug() << this->expression;
-}
-
-double Parser::calculateFunction()
-{
-    double res = 0;
-
-
-
-    return res;
 }
 
 QString Parser::getFunction()

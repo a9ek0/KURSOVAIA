@@ -30,17 +30,16 @@ class Parser
 public:
     Parser(const QString &expression);
     QString getExpression() const;
-    bool validateExpression();
     QString getFunction();
     QString calculateInBracers(QStringList tokens);
-
     void setExpression(const QString &expression);
     void toPostfix();
+    bool validateExpression();
 
-    double calculateFunction();
+
 protected:
-    QString                     expression;
     std::map<QString, unsigned> priority;
+    QString                     expression;
 };
 
 #endif // PARSER_H

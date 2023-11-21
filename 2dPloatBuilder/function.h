@@ -9,8 +9,9 @@ class Function : public Parser
 {
 public:
     Function(const QString &expression);
+
     double calculateFunction(double x);
-    double calcualteTriganometry(QString func, double exp);
+    double calcualteMath(QString func, double exp);
 };
 
 #endif // FUNCTION_H

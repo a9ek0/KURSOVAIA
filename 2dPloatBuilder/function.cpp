@@ -3,60 +3,57 @@
 //Function::Function(){}
 
 Function::Function(const QString &expression) : Parser(expression){
-
 }
-// 2 operators - error
-// unarn operations
+
 double Function::calculateFunction(double x)
 {
-    bool trigan = false;
-    double result = 0;
+    bool mathExpr   = false;
+    double result   = 0;
     QString num;
 
     QRegularExpression re("\\s* \\s*");
     QStringList tokens = expression.split(re);
     tokens.removeAll("");
 
-    QStack<QString> operator_stack;
-    QStack<QString> variables_stack;
+    QStack<QString> operatorStack;
 
-    variables_stack.push(0);
+    QStack<QString> variablesStack;
+    variablesStack.push(0);
+
+    //Evaluating an Expression in Postfix Form
     foreach (QString token, tokens) {
         if (token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))) { //--exp
-            variables_stack.push(QString::number(calcualteTriganometry(token, variables_stack.pop().toDouble())));
+            variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
         } else if(token.contains(QRegularExpression("[+\\-*/]"))){
-            result = variables_stack.pop().toDouble();
-
+            result = variablesStack.pop().toDouble();
             if(token == '+'){
-                variables_stack.push(QString::number(variables_stack.pop().toDouble() + result));
+                variablesStack.push(QString::number(variablesStack.pop().toDouble() + result));
             } else if(token == '-'){
-                variables_stack.push(QString::number(variables_stack.pop().toDouble() - result));
+                variablesStack.push(QString::number(variablesStack.pop().toDouble() - result));
             } else if(token == '*'){
-                variables_stack.push(QString::number(variables_stack.pop().toDouble() * result));
+                variablesStack.push(QString::number(variablesStack.pop().toDouble() * result));
             } else if(token == '/'){
-                variables_stack.push(QString::number(variables_stack.pop().toDouble() / result));
+                variablesStack.push(QString::number(variablesStack.pop().toDouble() / result));
             }
         } else {
             if(token == 'x') {
-                variables_stack.push(QString::number(x));
+                variablesStack.push(QString::number(x));
                 continue;
             }
-            variables_stack.push(token);
+            variablesStack.push(token);
         }
     }
 
-    result = variables_stack.pop().toDouble();
-    if (variables_stack.top().contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs neg]"))) { //--exp
-        result = calcualteTriganometry(variables_stack.pop(), result);
+    result = variablesStack.pop().toDouble();
+    //The case when the expression contains only math expression
+    if (variablesStack.top().contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs neg]"))) { //--exp
+        result = calcualteMath(variablesStack.pop(), result);
     }
 
-
-    //result = variables_stack.pop().toDouble();
-    //qDebug() << this->expression;
     return result;
 }
 
-double Function::calcualteTriganometry(QString function, double operand) {
+double Function::calcualteMath(QString function, double operand) {
     if (function == "cos") {
         return qCos(operand);
     } else if (function == "sin") {
@@ -81,7 +78,3 @@ double Function::calcualteTriganometry(QString function, double operand) {
 
     return 0.0;
 }
-
-
-
-//lg(x) * sin(x) и sin(x) * lg(x) - разные резы и хуево скобки считает думает что lg(x * sin(x))

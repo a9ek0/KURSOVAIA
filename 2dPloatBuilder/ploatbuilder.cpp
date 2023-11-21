@@ -28,7 +28,8 @@ void ploatBuilder::on_buildButton_clicked()
     plot->setMaxBoarder(ui->maxRange->text().toDouble());
 
     if(plot->getMinBoarder() > plot->getMaxBoarder() || ui->function->text().isEmpty() || ui->minRange->text().isEmpty() || ui->maxRange->text().isEmpty()){
-        QMessageBox::critical(nullptr, "Ошибка", errorMessage);
+        errorMsg = "Проверьте границы графика!";
+        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
         return;
     }
 
@@ -39,7 +40,7 @@ void ploatBuilder::on_buildButton_clicked()
     //M
     if(func->getExpression() == " "){
         qDebug() << "1";
-        QMessageBox::critical(nullptr, "Ошибка", errorMessage);
+        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
         return;
     }
 

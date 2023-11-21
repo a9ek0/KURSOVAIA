@@ -44,24 +44,24 @@ public slots:
     void slotAlarmTimer();
 
 private:
-    QGraphicsScene      *scene;
-    QGraphicsItemGroup  *group_1;
-    QGraphicsItemGroup  *group_2;
-    QGraphicsItemGroup  *group_3;
-    QTimer              *timer;
+    QGraphicsScene     *scene;
+    QGraphicsItemGroup *group_1;
+    QGraphicsItemGroup *group_2;
+    QGraphicsItemGroup *group_3;
+    QTimer             *timer;
     QVector<QGraphicsLineItem*> lines;
 
 private:
     void resizeEvent(QResizeEvent *event);
 
 private:
-    double minBoarder = 0;
-    double maxBoarder = 0;
+    double minBoarder  = 0;
+    double maxBoarder  = 0;
 
 private:
-    int width         = 520;
-    int height        = 420;
-    int penColor      = 0;
+    int width          = 520;
+    int height         = 420;
+    int penColor       = 0;
 };
 
 #endif // MYGRAPHICVIEW_H

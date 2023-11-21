@@ -34,50 +34,36 @@ public:
 
 private slots:
     void on_buildButton_clicked();
-
     void on_actionSave_triggered();
-
     void on_actionSave_ploat_triggered();
-
     void on_actionopen_triggered();
-
     void on_actionBlack_triggered();
-
     void on_actionBlue_triggered();
-
     void on_actionGreen_triggered();
-
     void on_actionRed_triggered();
-
     void on_actionYellow_triggered();
-
     void on_actionParameters_triggered();
-
     void on_multyPloats_stateChanged(int arg1);
-
-    //void onThreadStarted();
-
-    //void drawPlotOtherThread();
 
 public slots:
     void receiveData(int color, int pointsNum, double drawStep);
 
 private:
-    Ui::ploatBuilder *ui;
-    GraphDrawer      *plot;
-    Parser           *pars;
-    Function         *func;
+    Ui::ploatBuilder  *ui;
+    GraphDrawer       *plot;
+    Parser            *pars;
+    Function          *func;
 
 private:
-    QString errorMessage = "Ошибка!";
+    QString errorMsg  = "Ошибка!";
 
 private:
     int graphicsColor = 0;
     int pointsNum     = 200;
-    double drawStep   = 0.01;
     bool multyPloats  = 0;
+    double drawStep   = 0.01;
 
 private:
-    Parameters       *parametersWindow;
+    Parameters        *parametersWindow;
 };
 #endif // PLOATBUILDER_H

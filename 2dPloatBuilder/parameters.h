@@ -28,7 +28,7 @@ signals:
     void sendData(int color, int pointsNum, double drawStep);
 
 private:
-    Ui::Parameters *ui;
+    Ui::Parameters  *ui;
 
 protected:
     int color       = 0;

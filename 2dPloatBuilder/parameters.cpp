@@ -49,6 +49,7 @@ void Parameters::on_pushButton_clicked()
     pointsNum = ui->pointsNum->text().toInt();
     drawStep  = ui->drawStep->text().toDouble();
 
+    //Transferring data to the main window
     emit sendData(color, pointsNum, drawStep);
 
     close();
