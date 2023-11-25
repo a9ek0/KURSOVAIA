@@ -167,33 +167,33 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>77</width>
            <height>16777215</height>
           </size>
          </property>
          <item>
           <property name="text">
-           <string>Black</string>
+           <string>Black ⬛</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Blue</string>
+           <string>Blue 🟦</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Green</string>
+           <string>Green 🟩</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Red</string>
+           <string>Red 🟥</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Yellow</string>
+           <string>Yellow 🟨</string>
           </property>
          </item>
         </widget>

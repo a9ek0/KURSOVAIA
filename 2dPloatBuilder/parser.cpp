@@ -32,13 +32,14 @@ void Parser::toPostfix()
     this->expression = replaceAllOccurrences(expression, "/", " / ");
     this->expression = replaceAllOccurrences(expression, "(", " ( ");
     this->expression = replaceAllOccurrences(expression, ")", " ) ");
+    this->expression = replaceAllOccurrences(expression, "^", " ^ ");
     this->expression = replaceAllOccurrences(expression, "cos", "cos ");
     this->expression = replaceAllOccurrences(expression, "sin", "sin ");
     this->expression = replaceAllOccurrences(expression, "ctg", "ctg ");
     this->expression = replaceAllOccurrences(expression, "tg", "tg ");
     this->expression = replaceAllOccurrences(expression, "p", "p ");
     this->expression = replaceAllOccurrences(expression, "e", "e ");
-    this->expression = replaceAllOccurrences(expression, "exp", "exp ");
+    //this->expression = replaceAllOccurrences(expression, "exp", "ep ");
     this->expression = replaceAllOccurrences(expression, "log", "log ");
     this->expression = replaceAllOccurrences(expression, "lg", "lg ");
     this->expression = replaceAllOccurrences(expression, "sqrt", "sqrt ");
@@ -59,6 +60,7 @@ void Parser::toPostfix()
 
     //Generating a postfix notation of a given expression
     foreach (QString token, tokens) {
+        qDebug() << normalized_str;
         if(token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){ //--exp
             previousToken = token;
             if(mathExpr != " "){
@@ -67,6 +69,9 @@ void Parser::toPostfix()
             mathExpr = token;
         }
         if(token.contains(QRegularExpression("[(]"))){
+            if(previousToken == "^")
+                operatorStack.push("^");
+
             operatorStack.push("(");
             brace++;
             previousToken = "(";
@@ -78,6 +83,12 @@ void Parser::toPostfix()
 
             operatorStack.pop();
             brace--;
+
+            if(!operatorStack.isEmpty() && operatorStack.top() == "^"){
+                normalized_str += operatorStack.pop();
+                normalized_str += ' ';
+            }
+
             previousToken = ")";
 
             if(mathExpr != " "){
@@ -90,8 +101,8 @@ void Parser::toPostfix()
                 continue;
             }
         } else if(token.contains(QRegularExpression("[+\\-*/)]"))){
-            if(previousToken.contains(QRegularExpression("[+-*/)]"))){
-                error = "Проверьте знаки!";
+            if(previousToken.contains(QRegularExpression("[+\\-*/]"))){
+                error = "1Проверьте знаки!";
                 throw error;
             }
             while (!operatorStack.isEmpty() && (priority[token] <= priority[operatorStack.top()])) {
@@ -99,10 +110,11 @@ void Parser::toPostfix()
                 normalized_str += ' ';
             }
             if(token.contains(QRegularExpression("[+\\*/)]")) && previousToken == "(") {
-                error = "2Проверьте знаки!";
+                error = "Проверьте знаки!";
                 throw error;
             } else if(token == "-" && previousToken == "("){
                 operatorStack.push("neg");
+                previousToken = "neg";
                 continue;
             }
             previousToken = token;
@@ -111,8 +123,7 @@ void Parser::toPostfix()
 
         } else{
             if(!token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){
-                previousToken = token;
-                if(token == "p") {
+                if(token == 'p') {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
                     continue;
@@ -120,10 +131,23 @@ void Parser::toPostfix()
                     normalized_str += QString::number(M_E);
                     normalized_str += ' ';
                     continue;
+                } else if(token == '^') {
+                    previousToken = '^';
+                    continue;
                 } else {
                     normalized_str += token;
                     normalized_str += ' ';
+                    if(previousToken == "neg"){
+                        operatorStack.pop();
+                        normalized_str += "neg";
+                        normalized_str += ' ';
+                    }
+                    if(previousToken == '^'){
+                        normalized_str += '^';
+                        normalized_str += ' ';
+                    }
                 }
+                previousToken = token;
             }
         }
     }

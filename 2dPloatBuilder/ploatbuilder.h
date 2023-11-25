@@ -59,7 +59,7 @@ private:
 
 private:
     int graphicsColor = 0;
-    int pointsNum     = 200;
+    int pointsNum     = 50;
     bool multyPloats  = 0;
     double drawStep   = 0.01;
 

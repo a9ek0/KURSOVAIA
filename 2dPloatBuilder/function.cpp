@@ -7,12 +7,12 @@ Function::Function(const QString &expression) : Parser(expression){
 
 double Function::calculateFunction(double x)
 {
-    bool mathExpr   = false;
-    double result   = 0;
+    bool mathExpr      = false;
+    double result      = 0;
     QString num;
 
     QRegularExpression re("\\s* \\s*");
-    QStringList tokens = expression.split(re);
+    QStringList tokens   = expression.split(re);
     tokens.removeAll("");
 
     QStack<QString> operatorStack;
@@ -24,16 +24,23 @@ double Function::calculateFunction(double x)
     foreach (QString token, tokens) {
         if (token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))) { //--exp
             variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
-        } else if(token.contains(QRegularExpression("[+\\-*/]"))){
+        } else if(token.contains(QRegularExpression("[+\\-*/^]"))){
             result = variablesStack.pop().toDouble();
             if(token == '+'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() + result));
             } else if(token == '-'){
+                //Case when - it the first char in function
+                if(variablesStack.top() == ""){
+                    variablesStack.push(QString::number(calcualteMath("neg", result)));
+                    continue;
+                }
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() - result));
             } else if(token == '*'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() * result));
             } else if(token == '/'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() / result));
+            } else if(token == '^'){
+                variablesStack.push(QString::number(pow(variablesStack.pop().toDouble(), result)));
             }
         } else {
             if(token == 'x') {
@@ -62,7 +69,7 @@ double Function::calcualteMath(QString function, double operand) {
         return qAtan(operand);
     } else if (function == "tg") {
         return qTan(operand);
-    } else if (function == "exp") {
+    } else if (function == "ep") {
         return qExp(operand);
     } else if (function == "log") {
         return log(operand);

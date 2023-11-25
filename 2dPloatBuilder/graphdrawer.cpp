@@ -58,17 +58,14 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     double offsety       = 0;
     double ytmp          = 0;
     double y             = 0;
-    int minY             = 0;
-    int maxY             = 0;
+    double maxY          = -__DBL_MAX__;//*func->calculateFunction(*/fabs(minBoarder) * (-1.5)/*)*/;
+    double minY          = __DBL_MAX__;//*func->calculateFunction(*/fabs(maxBoarder) * 1.5/*)*/;
 
     double xScaling      = fabs((width  - 20)/ ((fabs(maxBoarder) + fabs(minBoarder))));
     double offsetx       = 0;
     double scaledX       = 0;
     double xtmp          = minBoarder;
 
-
-    double absMaxBoarder = fabs(maxBoarder);
-    double absMinBoarder = fabs(minBoarder);
     double indent        = 0;
 
     //Calculating X
@@ -85,16 +82,18 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     for(double x = -pointsNum / 2, i = 0; x < pointsNum / 2; x += drawStep , i++){
         yVector[i] = func->calculateFunction(x);
 
-        if(yVector[i] > maxY && yVector[i] <= fabs(maxBoarder) * 1.5)
-            maxY = yVector[i];
+        if(yVector[i] > maxY)// && yVector[i] <= fabs(maxBoarder) * 1.5)
+            maxY = round(yVector[i]);
 
-        if(yVector[i] < minY && yVector[i] >= fabs(minBoarder) * (-1.5))
-            minY = yVector[i];
+        if(yVector[i] < minY)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
+            minY = round(yVector[i]);
     }
 
+    qDebug() << minY << " " << maxY;
+
     if(maxY == minY) {
-        maxY++;
-        minY--;
+        maxY += maxY == 0 ? 1 : fabs(maxY);
+        minY -= minY == 0 ? 1 : fabs(minY);
     }
 
     indent = minY > 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : minY < 0 && maxY < 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : (fabs(maxY) + fabs(minY)) / 8;
@@ -106,6 +105,8 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
 
     offsety = (fabs(maxY) / indent * 50);
 
+
+
     yScaling = fabs((height - 20)/ ((fabs(maxY) + fabs(minY))));
 
     //Draw axes
@@ -113,7 +114,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     pen.setStyle(Qt::SolidLine);
     pen.setColor(Qt::gray);
     group_2->addToGroup(scene->addLine(width - (maxBoarder >= 0 ? offsetx : (-offsetx)), 0, width - (maxBoarder >= 0 ? offsetx : -offsetx), height - 20, pen));
-    group_2->addToGroup(scene->addLine(20, height - (height - (maxY >= 0 ? offsety : -offsety)), width, height - (height - (maxBoarder >= 0 ? offsety : -offsety)), pen));
+    group_2->addToGroup(scene->addLine(20, height - (height - (maxY >= 0 ? offsety : -offsety)), width, height - (height - (maxY >= 0 ? offsety : -offsety)), pen));
 
     //Draw plot
     pen.setWidth(1);
@@ -126,7 +127,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         y *= -yScaling;
 
     //Draw Lines
-        if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (minBoarder == 0 ? 1 : maxBoarder == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))
+        if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (/*minBoarder*/minY == 0 ? 1 : /*maxBoarder*/maxY == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))
             group_2->addToGroup(scene->addLine(scaledX + width - (maxBoarder >= 0 ? offsetx : -offsetx), ytmp + (maxY >= 0 ? offsety : -offsety), xtmp + width - (maxBoarder >= 0 ? offsetx : -offsetx), y + (maxY >= 0 ? offsety : -offsety), pen));
 
         xtmp = scaledX;

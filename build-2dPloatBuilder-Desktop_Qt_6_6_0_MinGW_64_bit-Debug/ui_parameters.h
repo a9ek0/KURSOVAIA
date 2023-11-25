@@ -131,7 +131,7 @@ public:
         Colors->addItem(QString());
         Colors->setObjectName("Colors");
         Colors->setEnabled(true);
-        Colors->setMaximumSize(QSize(75, 16777215));
+        Colors->setMaximumSize(QSize(77, 16777215));
 
         horizontalLayout->addWidget(Colors);
 
@@ -164,11 +164,11 @@ public:
         pointsNum->setText(QCoreApplication::translate("Parameters", "800", nullptr));
         pointsNum->setPlaceholderText(QString());
         label_2->setText(QCoreApplication::translate("Parameters", "Graphics color", nullptr));
-        Colors->setItemText(0, QCoreApplication::translate("Parameters", "Black", nullptr));
-        Colors->setItemText(1, QCoreApplication::translate("Parameters", "Blue", nullptr));
-        Colors->setItemText(2, QCoreApplication::translate("Parameters", "Green", nullptr));
-        Colors->setItemText(3, QCoreApplication::translate("Parameters", "Red", nullptr));
-        Colors->setItemText(4, QCoreApplication::translate("Parameters", "Yellow", nullptr));
+        Colors->setItemText(0, QCoreApplication::translate("Parameters", "Black \342\254\233", nullptr));
+        Colors->setItemText(1, QCoreApplication::translate("Parameters", "Blue \360\237\237\246", nullptr));
+        Colors->setItemText(2, QCoreApplication::translate("Parameters", "Green \360\237\237\251", nullptr));
+        Colors->setItemText(3, QCoreApplication::translate("Parameters", "Red \360\237\237\245", nullptr));
+        Colors->setItemText(4, QCoreApplication::translate("Parameters", "Yellow \360\237\237\250", nullptr));
 
     } // retranslateUi
 
