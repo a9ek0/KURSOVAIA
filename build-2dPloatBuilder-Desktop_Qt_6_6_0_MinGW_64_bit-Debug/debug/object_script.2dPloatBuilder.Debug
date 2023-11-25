@@ -1,3 +1,4 @@
+debug/expression.o
 debug/function.o
 debug/graphdrawer.o
 debug/main.o

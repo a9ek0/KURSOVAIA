@@ -34,11 +34,11 @@ void ploatBuilder::on_buildButton_clicked()
     }
 
     func = new Function("");
-    func->setExpression(ui->function->text());
-    try{func->toPostfix();} catch(QString &error){QMessageBox::critical(nullptr, "Ошибка", error); return;}
+    func->getFXExpression()->setExpression(ui->function->text());
+    try{func->getFXExpression()->setExpression(func->toPostfix(func->getFXExpression()->getExpression()));} catch(QString &error){QMessageBox::critical(nullptr, "Ошибка", error); return;}
 
     //M
-    if(func->getExpression() == " "){
+    if(func->getFXExpression()->getExpression() == " "){
         qDebug() << "1";
         QMessageBox::critical(nullptr, "Ошибка", errorMsg);
         return;

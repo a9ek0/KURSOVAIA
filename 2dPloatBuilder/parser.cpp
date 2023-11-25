@@ -1,17 +1,7 @@
 #include "parser.h"
-Parser::Parser(const QString &expression) : expression(expression) {}
+Parser::Parser(const QString &expression) {}
 
-void Parser::setExpression(const QString &expression)
-{
-    this->expression = expression;
-}
-
-QString Parser::getExpression() const
-{
-    return expression;
-}
-
-void Parser::toPostfix()
+QString Parser::toPostfix(QString expression)
 {
     QString error;
     QString normalized_str;
@@ -23,27 +13,27 @@ void Parser::toPostfix()
     priority["/"] = 2;
 
     //Preparing an expression
-    this->expression = expression.toLower();
+    expression = expression.toLower();
     expression.replace(QRegularExpression("\\s+"), "");
 
-    this->expression = replaceAllOccurrences(expression, "+", " + ");
-    this->expression = replaceAllOccurrences(expression, "-", " - ");
-    this->expression = replaceAllOccurrences(expression, "*", " * ");
-    this->expression = replaceAllOccurrences(expression, "/", " / ");
-    this->expression = replaceAllOccurrences(expression, "(", " ( ");
-    this->expression = replaceAllOccurrences(expression, ")", " ) ");
-    this->expression = replaceAllOccurrences(expression, "^", " ^ ");
-    this->expression = replaceAllOccurrences(expression, "cos", "cos ");
-    this->expression = replaceAllOccurrences(expression, "sin", "sin ");
-    this->expression = replaceAllOccurrences(expression, "ctg", "ctg ");
-    this->expression = replaceAllOccurrences(expression, "tg", "tg ");
-    this->expression = replaceAllOccurrences(expression, "p", "p ");
-    this->expression = replaceAllOccurrences(expression, "e", "e ");
+    expression = replaceAllOccurrences(expression, "+", " + ");
+    expression = replaceAllOccurrences(expression, "-", " - ");
+    expression = replaceAllOccurrences(expression, "*", " * ");
+    expression = replaceAllOccurrences(expression, "/", " / ");
+    expression = replaceAllOccurrences(expression, "(", " ( ");
+    expression = replaceAllOccurrences(expression, ")", " ) ");
+    expression = replaceAllOccurrences(expression, "^", " ^ ");
+    expression = replaceAllOccurrences(expression, "cos", "cos ");
+    expression = replaceAllOccurrences(expression, "sin", "sin ");
+    expression = replaceAllOccurrences(expression, "ctg", "ctg ");
+    expression = replaceAllOccurrences(expression, "tg", "tg ");
+    expression = replaceAllOccurrences(expression, "p", "p ");
+    expression = replaceAllOccurrences(expression, "e", "e ");
     //this->expression = replaceAllOccurrences(expression, "exp", "ep ");
-    this->expression = replaceAllOccurrences(expression, "log", "log ");
-    this->expression = replaceAllOccurrences(expression, "lg", "lg ");
-    this->expression = replaceAllOccurrences(expression, "sqrt", "sqrt ");
-    this->expression = replaceAllOccurrences(expression, "fabs", "fabs ");
+    expression = replaceAllOccurrences(expression, "log", "log ");
+    expression = replaceAllOccurrences(expression, "lg", "lg ");
+    expression = replaceAllOccurrences(expression, "sqrt", "sqrt ");
+    expression = replaceAllOccurrences(expression, "fabs", "fabs ");
 
     QRegularExpression re("\\s* \\s*");
 
@@ -168,17 +158,19 @@ void Parser::toPostfix()
         normalized_str += ' ';
     }
 
-    this->expression = normalized_str;
-    qDebug() << this->expression;
+    qDebug() << expression;
+    return normalized_str;
 }
 
-QString Parser::getFunction()
-{
-    return this->expression;
+Expression* Parser::getFXExpression() const{
+    return fXExpression;
 }
 
-QString Parser::calculateInBracers(QStringList tokens)
-{
+Expression* Parser::getGXExpression() const{
+    return gXExpression;
+}
+
+QString Parser::calculateInBracers(QStringList tokens){
 
 }
 

@@ -1,3 +1,4 @@
+release/expression.o
 release/function.o
 release/graphdrawer.o
 release/main.o

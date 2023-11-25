@@ -51,7 +51,6 @@ public slots:
 private:
     Ui::ploatBuilder  *ui;
     GraphDrawer       *plot;
-    Parser            *pars;
     Function          *func;
 
 private:

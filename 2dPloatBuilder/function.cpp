@@ -5,7 +5,7 @@
 Function::Function(const QString &expression) : Parser(expression){
 }
 
-double Function::calculateFunction(double x)
+double Function::calculateFunction(double x, const QString &expression)
 {
     bool mathExpr      = false;
     double result      = 0;

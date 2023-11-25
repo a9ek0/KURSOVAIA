@@ -80,7 +80,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
 
     //Calculating y
     for(double x = -pointsNum / 2, i = 0; x < pointsNum / 2; x += drawStep , i++){
-        yVector[i] = func->calculateFunction(x);
+        yVector[i] = func->calculateFunction(x, func->getFXExpression()->getExpression());
 
         if(yVector[i] > maxY)// && yVector[i] <= fabs(maxBoarder) * 1.5)
             maxY = round(yVector[i]);
@@ -95,6 +95,9 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         maxY += maxY == 0 ? 1 : fabs(maxY);
         minY -= minY == 0 ? 1 : fabs(minY);
     }
+
+    maxY = maxY >= maxBoarder * 10 ? maxBoarder * 10 : maxY;
+    minY = minY <= minBoarder * 10 ? minBoarder * 10 : minY;
 
     indent = minY > 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : minY < 0 && maxY < 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : (fabs(maxY) + fabs(minY)) / 8;
     for(double i = maxY; i > -maxY; i-=indent ){
