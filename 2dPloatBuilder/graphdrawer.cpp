@@ -89,15 +89,15 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
             minY = round(yVector[i]);
     }
 
-    qDebug() << minY << " " << maxY;
-
+    //Ыituation when the graph is a horizontal line
     if(maxY == minY) {
         maxY += maxY == 0 ? 1 : fabs(maxY);
         minY -= minY == 0 ? 1 : fabs(minY);
     }
 
-    maxY = maxY >= maxBoarder * 10 ? maxBoarder * 10 : maxY;
-    minY = minY <= minBoarder * 10 ? minBoarder * 10 : minY;
+    //Calculating the maximum and minimum y-axis border for proper scaling
+    maxY = fabs(maxY) >= (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10 ? maxBoarder * 10 : maxY;
+    minY = fabs(minY) >= (fabs(minBoarder) == 0 ? fabs(maxBoarder) : fabs(minBoarder)) * 10 ? minBoarder * 10 : minY;
 
     indent = minY > 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : minY < 0 && maxY < 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : (fabs(maxY) + fabs(minY)) / 8;
     for(double i = maxY; i > -maxY; i-=indent ){
@@ -126,8 +126,12 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     for(double x = -pointsNum / 2, i = 0; x < pointsNum / 2; x += drawStep , i++){
         y = yVector[i];
 
-        scaledX = (x * xScaling);
+        scaledX = ((func->getGXExpression()->getExpression() == "" ? x
+        : func->calculateFunction(x, func->getGXExpression()->getExpression()))  * xScaling);
+
         y *= -yScaling;
+
+        //qDebug() << scaledX << " " << y;
 
     //Draw Lines
         if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (/*minBoarder*/minY == 0 ? 1 : /*maxBoarder*/maxY == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))

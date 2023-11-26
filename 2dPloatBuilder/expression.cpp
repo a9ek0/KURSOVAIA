@@ -1,6 +1,6 @@
 #include "expression.h"
 
-Expression::Expression(const QString &expression) {
+Expression::Expression(const QString &expression = "") {
     setExpression(expression);
 }
 

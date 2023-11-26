@@ -49,6 +49,9 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label;
     QLineEdit *function;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_2;
+    QLineEdit *function_2;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
@@ -124,6 +127,22 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_3);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName("horizontalLayout_9");
+        label_2 = new QLabel(verticalLayoutWidget);
+        label_2->setObjectName("label_2");
+
+        horizontalLayout_9->addWidget(label_2);
+
+        function_2 = new QLineEdit(verticalLayoutWidget);
+        function_2->setObjectName("function_2");
+        function_2->setMaximumSize(QSize(185, 16777215));
+
+        horizontalLayout_9->addWidget(function_2);
+
+
+        verticalLayout->addLayout(horizontalLayout_9);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -260,6 +279,10 @@ public:
         function->setInputMask(QString());
         function->setText(QString());
         function->setPlaceholderText(QCoreApplication::translate("ploatBuilder", "cos(\321\205) + 2", nullptr));
+        label_2->setText(QCoreApplication::translate("ploatBuilder", "g(x) =", nullptr));
+        function_2->setInputMask(QString());
+        function_2->setText(QString());
+        function_2->setPlaceholderText(QCoreApplication::translate("ploatBuilder", "sin(\321\205) + 2", nullptr));
         label_4->setText(QCoreApplication::translate("ploatBuilder", "Min =", nullptr));
         minRange->setInputMask(QString());
         minRange->setText(QCoreApplication::translate("ploatBuilder", "-10", nullptr));

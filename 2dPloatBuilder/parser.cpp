@@ -50,7 +50,6 @@ QString Parser::toPostfix(QString expression)
 
     //Generating a postfix notation of a given expression
     foreach (QString token, tokens) {
-        qDebug() << normalized_str;
         if(token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){ //--exp
             previousToken = token;
             if(mathExpr != " "){
@@ -158,7 +157,7 @@ QString Parser::toPostfix(QString expression)
         normalized_str += ' ';
     }
 
-    qDebug() << expression;
+    qDebug() << normalized_str;
     return normalized_str;
 }
 

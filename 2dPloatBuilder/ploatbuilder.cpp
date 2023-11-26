@@ -27,7 +27,7 @@ void ploatBuilder::on_buildButton_clicked()
     plot->setMinBoarder(ui->minRange->text().toDouble());
     plot->setMaxBoarder(ui->maxRange->text().toDouble());
 
-    if(plot->getMinBoarder() > plot->getMaxBoarder() || ui->function->text().isEmpty() || ui->minRange->text().isEmpty() || ui->maxRange->text().isEmpty()){
+    if(plot->getMinBoarder() > plot->getMaxBoarder() || plot->getMinBoarder() == plot->getMaxBoarder() || ui->function->text().isEmpty() || ui->minRange->text().isEmpty() || ui->maxRange->text().isEmpty()){
         errorMsg = "Проверьте границы графика!";
         QMessageBox::critical(nullptr, "Ошибка", errorMsg);
         return;
@@ -35,7 +35,15 @@ void ploatBuilder::on_buildButton_clicked()
 
     func = new Function("");
     func->getFXExpression()->setExpression(ui->function->text());
-    try{func->getFXExpression()->setExpression(func->toPostfix(func->getFXExpression()->getExpression()));} catch(QString &error){QMessageBox::critical(nullptr, "Ошибка", error); return;}
+    try {
+        func->getFXExpression()->setExpression(func->toPostfix(func->getFXExpression()->getExpression()));
+        if(!ui->function_2->text().isEmpty()){
+            func->getGXExpression()->setExpression(ui->function_2->text());
+            func->getGXExpression()->setExpression(func->toPostfix(func->getGXExpression()->getExpression()));
+        }
+    } catch(QString &error){
+        QMessageBox::critical(nullptr, "Ошибка", error); return;
+    }
 
     //M
     if(func->getFXExpression()->getExpression() == " "){
