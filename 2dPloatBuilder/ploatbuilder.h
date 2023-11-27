@@ -3,21 +3,23 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QMessageBox>
 
 #include <QPixMap>
 #include <QLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
-#include <QtConcurrent/QtConcurrent>
 #include <QLayoutItem>
 #include <QFileDialog>
 #include <QImageWriter>
+#include <QtConcurrent/QtConcurrent>
 #include <QtPrintSupport/QPrintDialog>
 
-#include "graphdrawer.h"
 #include "parser.h"
+#include "deltoid.h"
 #include "function.h"
+#include "cardioid.h"
 #include "parameters.h"
+#include "graphdrawer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ploatBuilder; }
@@ -45,6 +47,14 @@ private slots:
     void on_actionParameters_triggered();
     void on_multyPloats_stateChanged(int arg1);
 
+    void on_comboBox_currentIndexChanged(int index);
+
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_radius_editingFinished();
+
+    void on_ploatInput_editingFinished();
+
 public slots:
     void receiveData(int color, int pointsNum, double drawStep);
 
@@ -64,5 +74,10 @@ private:
 
 private:
     Parameters        *parametersWindow;
+
+//Ploats
+private:
+    Cardioid          *cardioid;
+    Deltoid           *deltoid;
 };
 #endif // PLOATBUILDER_H

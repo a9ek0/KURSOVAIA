@@ -13,6 +13,7 @@
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -52,6 +53,10 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_2;
     QLineEdit *function_2;
+    QHBoxLayout *horizontalLayout_2;
+    QComboBox *comboBox;
+    QSpacerItem *horizontalSpacer;
+    QLineEdit *ploatInput;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
@@ -108,7 +113,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 232, 481));
+        verticalLayoutWidget->setGeometry(QRect(10, 10, 231, 481));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -144,6 +149,40 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_9);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        comboBox = new QComboBox(verticalLayoutWidget);
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->setObjectName("comboBox");
+        comboBox->setMinimumSize(QSize(115, 0));
+        comboBox->setMaximumSize(QSize(115, 100));
+
+        horizontalLayout_2->addWidget(comboBox);
+
+        horizontalSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        ploatInput = new QLineEdit(verticalLayoutWidget);
+        ploatInput->setObjectName("ploatInput");
+        ploatInput->setEnabled(true);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(ploatInput->sizePolicy().hasHeightForWidth());
+        ploatInput->setSizePolicy(sizePolicy);
+        ploatInput->setMaximumSize(QSize(0, 100));
+        ploatInput->setLayoutDirection(Qt::RightToLeft);
+        ploatInput->setFrame(true);
+        ploatInput->setEchoMode(QLineEdit::Normal);
+
+        horizontalLayout_2->addWidget(ploatInput);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         verticalLayout->addItem(verticalSpacer);
@@ -152,22 +191,19 @@ public:
         horizontalLayout_5->setObjectName("horizontalLayout_5");
         label_4 = new QLabel(verticalLayoutWidget);
         label_4->setObjectName("label_4");
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy1);
         label_4->setMaximumSize(QSize(35, 16777215));
 
         horizontalLayout_5->addWidget(label_4);
 
         minRange = new QLineEdit(verticalLayoutWidget);
         minRange->setObjectName("minRange");
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(minRange->sizePolicy().hasHeightForWidth());
-        minRange->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(minRange->sizePolicy().hasHeightForWidth());
+        minRange->setSizePolicy(sizePolicy);
         minRange->setMaximumSize(QSize(185, 16777215));
         minRange->setLayoutDirection(Qt::RightToLeft);
 
@@ -215,8 +251,8 @@ public:
 
         buildButton = new QPushButton(verticalLayoutWidget);
         buildButton->setObjectName("buildButton");
-        sizePolicy1.setHeightForWidth(buildButton->sizePolicy().hasHeightForWidth());
-        buildButton->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(buildButton->sizePolicy().hasHeightForWidth());
+        buildButton->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(buildButton);
 
@@ -282,7 +318,13 @@ public:
         label_2->setText(QCoreApplication::translate("ploatBuilder", "g(x) =", nullptr));
         function_2->setInputMask(QString());
         function_2->setText(QString());
-        function_2->setPlaceholderText(QCoreApplication::translate("ploatBuilder", "sin(\321\205) + 2", nullptr));
+        function_2->setPlaceholderText(QCoreApplication::translate("ploatBuilder", "sin(\321\205)", nullptr));
+        comboBox->setItemText(0, QString());
+        comboBox->setItemText(1, QCoreApplication::translate("ploatBuilder", "Cardioid", nullptr));
+        comboBox->setItemText(2, QCoreApplication::translate("ploatBuilder", "Deltoid", nullptr));
+
+        ploatInput->setInputMask(QString());
+        ploatInput->setText(QCoreApplication::translate("ploatBuilder", "1", nullptr));
         label_4->setText(QCoreApplication::translate("ploatBuilder", "Min =", nullptr));
         minRange->setInputMask(QString());
         minRange->setText(QCoreApplication::translate("ploatBuilder", "-10", nullptr));

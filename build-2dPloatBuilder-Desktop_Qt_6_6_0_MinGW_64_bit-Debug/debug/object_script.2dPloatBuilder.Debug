@@ -1,9 +1,12 @@
+debug/cardioid.o
+debug/deltoid.o
 debug/expression.o
 debug/function.o
 debug/graphdrawer.o
 debug/main.o
 debug/parameters.o
 debug/parser.o
+debug/ploat.o
 debug/ploatbuilder.o
 debug/thread.o
 debug/moc_graphdrawer.o

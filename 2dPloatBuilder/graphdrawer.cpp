@@ -83,10 +83,10 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         yVector[i] = func->calculateFunction(x, func->getFXExpression()->getExpression());
 
         if(yVector[i] > maxY)// && yVector[i] <= fabs(maxBoarder) * 1.5)
-            maxY = round(yVector[i]);
+            maxY = ceil(yVector[i]);
 
         if(yVector[i] < minY)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
-            minY = round(yVector[i]);
+            minY = floor(yVector[i]);
     }
 
     //Ыituation when the graph is a horizontal line
@@ -130,8 +130,6 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         : func->calculateFunction(x, func->getGXExpression()->getExpression()))  * xScaling);
 
         y *= -yScaling;
-
-        //qDebug() << scaledX << " " << y;
 
     //Draw Lines
         if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (/*minBoarder*/minY == 0 ? 1 : /*maxBoarder*/maxY == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))

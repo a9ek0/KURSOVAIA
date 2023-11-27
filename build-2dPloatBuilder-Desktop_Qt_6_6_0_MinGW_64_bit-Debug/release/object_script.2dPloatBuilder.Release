@@ -1,9 +1,12 @@
+release/cardioid.o
+release/deltoid.o
 release/expression.o
 release/function.o
 release/graphdrawer.o
 release/main.o
 release/parameters.o
 release/parser.o
+release/ploat.o
 release/ploatbuilder.o
 release/thread.o
 release/moc_graphdrawer.o

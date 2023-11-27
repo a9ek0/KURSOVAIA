@@ -27,7 +27,7 @@ QString Parser::toPostfix(QString expression)
     expression = replaceAllOccurrences(expression, "sin", "sin ");
     expression = replaceAllOccurrences(expression, "ctg", "ctg ");
     expression = replaceAllOccurrences(expression, "tg", "tg ");
-    expression = replaceAllOccurrences(expression, "p", "p ");
+    expression = replaceAllOccurrences(expression, "pi", "p ");
     expression = replaceAllOccurrences(expression, "e", "e ");
     //this->expression = replaceAllOccurrences(expression, "exp", "ep ");
     expression = replaceAllOccurrences(expression, "log", "log ");
@@ -91,7 +91,7 @@ QString Parser::toPostfix(QString expression)
             }
         } else if(token.contains(QRegularExpression("[+\\-*/)]"))){
             if(previousToken.contains(QRegularExpression("[+\\-*/]"))){
-                error = "1Проверьте знаки!";
+                error = "Проверьте знаки!";
                 throw error;
             }
             while (!operatorStack.isEmpty() && (priority[token] <= priority[operatorStack.top()])) {
@@ -115,10 +115,12 @@ QString Parser::toPostfix(QString expression)
                 if(token == 'p') {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
+                    previousToken = 'p';
                     continue;
                 } else if(token == 'e') {
                     normalized_str += QString::number(M_E);
                     normalized_str += ' ';
+                    previousToken = 'e';
                     continue;
                 } else if(token == '^') {
                     previousToken = '^';
