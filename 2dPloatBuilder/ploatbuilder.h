@@ -6,12 +6,13 @@
 
 #include <QPixMap>
 #include <QLayout>
+#include <QValidator>
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QLayoutItem>
 #include <QFileDialog>
 #include <QImageWriter>
-#include <QValidator>
+#include <QMouseEvent>
 #include <QtConcurrent/QtConcurrent>
 #include <QtPrintSupport/QPrintDialog>
 
@@ -32,6 +33,7 @@ class ploatBuilder : public QMainWindow
 
 public:
     ploatBuilder(QWidget *parent = nullptr);
+    void mouseMoveEvent(QMouseEvent *event);
     void setGraphicsColor(int color);
     void setData(QString fXFunction, QString gXFunction, int graphicsColor, int pointsNum, double drawStep,
                  double minBoarder, double maxBoarder, bool multyPloats);
@@ -53,6 +55,8 @@ private slots:
     void on_comboBox_currentTextChanged(const QString &arg1);
     void on_radius_editingFinished();
     void on_ploatInput_editingFinished();
+
+    void on_prompt_clicked();
 
 public slots:
     void receiveData(int color, int pointsNum, double drawStep);

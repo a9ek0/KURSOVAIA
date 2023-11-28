@@ -11,11 +11,22 @@ ploatBuilder::ploatBuilder(QWidget *parent)
     ui->GRAPH->addWidget(plot);
 
     ui->ploatInput->setVisible(false);
+    ui->prompt->setVisible(false);
 
     intValidator = new QIntValidator();
 
     ui->minRange->setValidator(intValidator);
     ui->maxRange->setValidator(intValidator);
+
+    setMouseTracking(true);
+    ui->centralwidget->setMouseTracking(true);
+}
+
+void ploatBuilder::mouseMoveEvent(QMouseEvent *event)
+{
+    QString text;
+    text = QString("%1 X %2").arg(event->pos().x()).arg(event->pos().y());
+    ui->mouseLabel->setText(text);
 }
 
 void ploatBuilder::setGraphicsColor(int color)
@@ -81,7 +92,7 @@ void ploatBuilder::on_buildButton_clicked()
     plot->drawPlot(ui->GRAPH, func, drawStep, pointsNum, multyPloats);
     ui->GRAPH->addWidget(plot);
 
-    //ui->comboBox->setCurrentIndex(0);
+    ui->prompt->setVisible(true);
 }
 
 
@@ -240,17 +251,9 @@ void ploatBuilder::on_comboBox_currentIndexChanged(int index)
         //Возможно удалять не стоит
         ui->ploatInput->setText("1");
         ui->ploatInput->setVisible(false);
+
         setData("", "", 0, 50, 0.01, -10, 10, false);
-        /*setGraphicsColor(0);
-        ui->minRange->setText(QString::number(-10));
-        ui->maxRange->setText(QString::number(10));
-        ui->function->setText("");
-        ui->function_2->setText("");
-        ui->function->setPlaceholderText("cos(x) + 2");
-        ui->function_2->setPlaceholderText("sin(x)");
-        ui->multyPloats->setChecked(false);
-        this->drawStep  = 0.01;
-        this->pointsNum = 50;*/
+
         break;
     case 1:
         ui->ploatInput->setVisible(true);
@@ -258,20 +261,6 @@ void ploatBuilder::on_comboBox_currentIndexChanged(int index)
 
         setData(cardioid->getFXFunction(), cardioid->getGXFunction(), cardioid->getGraphicsColor(), cardioid->getPointsNum(),
                 cardioid->getDrawStep(), cardioid->getMinBoarder(), cardioid->getMaxBoarder(), cardioid->getMultyPloats());
-
-        /*setGraphicsColor(cardioid->getGraphicsColor());
-
-        ui->function->setText(cardioid->getFXFunction());
-        ui->function_2->setText(cardioid->getGXFunction());
-
-        ui->minRange->setText(QString::number(cardioid->getMinBoarder()));
-        ui->maxRange->setText(QString::number(cardioid->getMaxBoarder()));
-
-        ui->multyPloats->setChecked(cardioid->getMultyPloats());
-
-        this->drawStep  = cardioid->getDrawStep();
-        this->pointsNum = cardioid->getPointsNum();*/
-
 
         break;
     case 2:
@@ -281,14 +270,6 @@ void ploatBuilder::on_comboBox_currentIndexChanged(int index)
         setData(deltoid->getFXFunction(), deltoid->getGXFunction(), deltoid->getGraphicsColor(), deltoid->getPointsNum(),
                 deltoid->getDrawStep(), deltoid->getMinBoarder(), deltoid->getMaxBoarder(), deltoid->getMultyPloats());
 
-        /*setGraphicsColor(deltoid->getGraphicsColor());
-        ui->function->setText(deltoid->getFXFunction());
-        ui->function_2->setText(deltoid->getGXFunction());
-        ui->minRange->setText(QString::number(deltoid->getMinBoarder()));
-        ui->maxRange->setText(QString::number(deltoid->getMaxBoarder()));
-        ui->multyPloats->setChecked(deltoid->getMultyPloats());
-        this->drawStep  = deltoid->getDrawStep();
-        this->pointsNum = deltoid->getPointsNum();*/
         break;
     default:
         break;
@@ -311,14 +292,6 @@ void ploatBuilder::on_ploatInput_editingFinished()
         setData(cardioid->getFXFunction(), cardioid->getGXFunction(), cardioid->getGraphicsColor(), cardioid->getPointsNum(),
                 cardioid->getDrawStep(), cardioid->getMinBoarder(), cardioid->getMaxBoarder(), cardioid->getMultyPloats());
 
-        /*setGraphicsColor(cardioid->getGraphicsColor());
-        ui->function->setText(cardioid->getFXFunction());
-        ui->function_2->setText(cardioid->getGXFunction());
-        ui->minRange->setText(QString::number(cardioid->getMinBoarder()));
-        ui->maxRange->setText(QString::number(cardioid->getMaxBoarder()));
-        ui->multyPloats->setChecked(cardioid->getMultyPloats());
-        this->drawStep  = cardioid->getDrawStep();
-        this->pointsNum = cardioid->getPointsNum();*/
         break;
     case 2:
         deltoid = new Deltoid(ui->ploatInput->text().toDouble());
@@ -326,15 +299,6 @@ void ploatBuilder::on_ploatInput_editingFinished()
         setData(deltoid->getFXFunction(), deltoid->getGXFunction(), deltoid->getGraphicsColor(), deltoid->getPointsNum(),
                 deltoid->getDrawStep(), deltoid->getMinBoarder(), deltoid->getMaxBoarder(), deltoid->getMultyPloats());
 
-
-        /*setGraphicsColor(deltoid->getGraphicsColor());
-        ui->function->setText(deltoid->getFXFunction());
-        ui->function_2->setText(deltoid->getGXFunction());
-        ui->minRange->setText(QString::number(deltoid->getMinBoarder()));
-        ui->maxRange->setText(QString::number(deltoid->getMaxBoarder()));
-        ui->multyPloats->setChecked(deltoid->getMultyPloats());
-        this->drawStep  = deltoid->getDrawStep();
-        this->pointsNum = deltoid->getPointsNum();*/
         break;
     default:
         break;
@@ -356,3 +320,9 @@ void ploatBuilder::on_comboBox_currentTextChanged(const QString &arg1)
 {
 
 }
+
+void ploatBuilder::on_prompt_clicked()
+{
+    ui->prompt->setVisible(false);
+}
+

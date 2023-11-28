@@ -58,6 +58,7 @@ static constexpr auto qt_meta_stringdata_CLASSploatBuilderENDCLASS = QtMocHelper
     "on_comboBox_currentTextChanged",
     "on_radius_editingFinished",
     "on_ploatInput_editingFinished",
+    "on_prompt_clicked",
     "receiveData",
     "color",
     "pointsNum",
@@ -65,7 +66,7 @@ static constexpr auto qt_meta_stringdata_CLASSploatBuilderENDCLASS = QtMocHelper
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSploatBuilderENDCLASS_t {
-    uint offsetsAndSizes[46];
+    uint offsetsAndSizes[48];
     char stringdata0[13];
     char stringdata1[23];
     char stringdata2[1];
@@ -85,10 +86,11 @@ struct qt_meta_stringdata_CLASSploatBuilderENDCLASS_t {
     char stringdata16[31];
     char stringdata17[26];
     char stringdata18[30];
-    char stringdata19[12];
-    char stringdata20[6];
-    char stringdata21[10];
-    char stringdata22[9];
+    char stringdata19[18];
+    char stringdata20[12];
+    char stringdata21[6];
+    char stringdata22[10];
+    char stringdata23[9];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSploatBuilderENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -113,10 +115,11 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSploatBuilderENDCLASS_t qt_meta_
         QT_MOC_LITERAL(339, 30),  // "on_comboBox_currentTextChanged"
         QT_MOC_LITERAL(370, 25),  // "on_radius_editingFinished"
         QT_MOC_LITERAL(396, 29),  // "on_ploatInput_editingFinished"
-        QT_MOC_LITERAL(426, 11),  // "receiveData"
-        QT_MOC_LITERAL(438, 5),  // "color"
-        QT_MOC_LITERAL(444, 9),  // "pointsNum"
-        QT_MOC_LITERAL(454, 8)   // "drawStep"
+        QT_MOC_LITERAL(426, 17),  // "on_prompt_clicked"
+        QT_MOC_LITERAL(444, 11),  // "receiveData"
+        QT_MOC_LITERAL(456, 5),  // "color"
+        QT_MOC_LITERAL(462, 9),  // "pointsNum"
+        QT_MOC_LITERAL(472, 8)   // "drawStep"
     },
     "ploatBuilder",
     "on_buildButton_clicked",
@@ -137,6 +140,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSploatBuilderENDCLASS_t qt_meta_
     "on_comboBox_currentTextChanged",
     "on_radius_editingFinished",
     "on_ploatInput_editingFinished",
+    "on_prompt_clicked",
     "receiveData",
     "color",
     "pointsNum",
@@ -152,7 +156,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSploatBuilderENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -160,22 +164,23 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSploatBuilderENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  110,    2, 0x08,    1 /* Private */,
-       3,    0,  111,    2, 0x08,    2 /* Private */,
-       4,    0,  112,    2, 0x08,    3 /* Private */,
-       5,    0,  113,    2, 0x08,    4 /* Private */,
-       6,    0,  114,    2, 0x08,    5 /* Private */,
-       7,    0,  115,    2, 0x08,    6 /* Private */,
-       8,    0,  116,    2, 0x08,    7 /* Private */,
-       9,    0,  117,    2, 0x08,    8 /* Private */,
-      10,    0,  118,    2, 0x08,    9 /* Private */,
-      11,    0,  119,    2, 0x08,   10 /* Private */,
-      12,    1,  120,    2, 0x08,   11 /* Private */,
-      14,    1,  123,    2, 0x08,   13 /* Private */,
-      16,    1,  126,    2, 0x08,   15 /* Private */,
-      17,    0,  129,    2, 0x08,   17 /* Private */,
-      18,    0,  130,    2, 0x08,   18 /* Private */,
-      19,    3,  131,    2, 0x0a,   19 /* Public */,
+       1,    0,  116,    2, 0x08,    1 /* Private */,
+       3,    0,  117,    2, 0x08,    2 /* Private */,
+       4,    0,  118,    2, 0x08,    3 /* Private */,
+       5,    0,  119,    2, 0x08,    4 /* Private */,
+       6,    0,  120,    2, 0x08,    5 /* Private */,
+       7,    0,  121,    2, 0x08,    6 /* Private */,
+       8,    0,  122,    2, 0x08,    7 /* Private */,
+       9,    0,  123,    2, 0x08,    8 /* Private */,
+      10,    0,  124,    2, 0x08,    9 /* Private */,
+      11,    0,  125,    2, 0x08,   10 /* Private */,
+      12,    1,  126,    2, 0x08,   11 /* Private */,
+      14,    1,  129,    2, 0x08,   13 /* Private */,
+      16,    1,  132,    2, 0x08,   15 /* Private */,
+      17,    0,  135,    2, 0x08,   17 /* Private */,
+      18,    0,  136,    2, 0x08,   18 /* Private */,
+      19,    0,  137,    2, 0x08,   19 /* Private */,
+      20,    3,  138,    2, 0x0a,   20 /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -193,7 +198,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSploatBuilderENDCLASS[] = {
     QMetaType::Void, QMetaType::QString,   13,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Double,   20,   21,   22,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Double,   21,   22,   23,
 
        0        // eod
 };
@@ -240,6 +246,8 @@ Q_CONSTINIT const QMetaObject ploatBuilder::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_ploatInput_editingFinished'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_prompt_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'receiveData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
@@ -270,7 +278,8 @@ void ploatBuilder::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 12: _t->on_comboBox_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 13: _t->on_radius_editingFinished(); break;
         case 14: _t->on_ploatInput_editingFinished(); break;
-        case 15: _t->receiveData((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
+        case 15: _t->on_prompt_clicked(); break;
+        case 16: _t->receiveData((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
         default: ;
         }
     }
@@ -295,13 +304,13 @@ int ploatBuilder::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 17)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 16;
+        _id -= 17;
     }
     return _id;
 }

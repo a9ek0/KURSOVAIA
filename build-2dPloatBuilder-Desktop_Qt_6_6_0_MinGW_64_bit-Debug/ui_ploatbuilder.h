@@ -64,12 +64,15 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
     QLineEdit *maxRange;
+    QHBoxLayout *horizontalLayout_4;
     QCheckBox *multyPloats;
+    QPushButton *prompt;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *verticalSpacer_2;
     QPushButton *buildButton;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *GRAPH;
+    QLabel *mouseLabel;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuSetings;
@@ -234,11 +237,29 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_6);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName("horizontalLayout_4");
         multyPloats = new QCheckBox(verticalLayoutWidget);
         multyPloats->setObjectName("multyPloats");
         multyPloats->setChecked(false);
 
-        verticalLayout->addWidget(multyPloats);
+        horizontalLayout_4->addWidget(multyPloats);
+
+        prompt = new QPushButton(verticalLayoutWidget);
+        prompt->setObjectName("prompt");
+        prompt->setMaximumSize(QSize(20, 16777215));
+        prompt->setCursor(QCursor(Qt::WhatsThisCursor));
+        prompt->setMouseTracking(true);
+        prompt->setToolTipDuration(-100);
+        prompt->setCheckable(true);
+        prompt->setChecked(false);
+        prompt->setAutoDefault(false);
+        prompt->setFlat(true);
+
+        horizontalLayout_4->addWidget(prompt);
+
+
+        verticalLayout->addLayout(horizontalLayout_4);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
@@ -262,6 +283,9 @@ public:
         GRAPH = new QVBoxLayout(verticalLayoutWidget_2);
         GRAPH->setObjectName("GRAPH");
         GRAPH->setContentsMargins(0, 0, 0, 0);
+        mouseLabel = new QLabel(centralwidget);
+        mouseLabel->setObjectName("mouseLabel");
+        mouseLabel->setGeometry(QRect(250, 480, 49, 16));
         ploatBuilder->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ploatBuilder);
         menubar->setObjectName("menubar");
@@ -285,6 +309,9 @@ public:
         menuSetings->addAction(actionParameters);
 
         retranslateUi(ploatBuilder);
+
+        prompt->setDefault(false);
+
 
         QMetaObject::connectSlotsByName(ploatBuilder);
     } // setupUi
@@ -331,7 +358,15 @@ public:
         label_5->setText(QCoreApplication::translate("ploatBuilder", "Max =", nullptr));
         maxRange->setText(QCoreApplication::translate("ploatBuilder", "10", nullptr));
         multyPloats->setText(QCoreApplication::translate("ploatBuilder", "Save previous charts", nullptr));
+#if QT_CONFIG(tooltip)
+        prompt->setToolTip(QCoreApplication::translate("ploatBuilder", "<html><head/><body><p>\320\225\321\201\320\273\320\270 \320\262\321\213 \320\275\320\265 \320\262\320\270\320\264\320\270\321\202\320\265 \320\263\321\200\320\260\321\204\320\270\320\272, </p><p>\320\277\320\276\320\277\321\200\320\276\320\261\321\203\320\271\321\202\320\265 \321\203\320\262\320\265\320\273\320\270\321\207\320\270\321\202\321\214 \320\274\320\270\320\275\320\270\320\274\320\260\320\273\321\214\320\275\321\203\321\216 </p><p>\320\270 \320\274\320\260\320\272\321\201\320\270\320\274\320\260\320\273\321\214\320\275\321\203\321\216 \320\263\321\200\320\260\320\275\320\270\321\206\321\203.</p><p>(\320\235\320\260\320\266\320\274\320\270\321\202\320\265 \321\207\321\202\320\276\320\261\321\213 \320\267\320\260\320\272\321\200\321\213\321\202\321\214 \320\277\320\276\320\264\321\201\320\272\320\260\320\267\320\272\321\203.)</p></body></html>", nullptr));
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(statustip)
+        prompt->setStatusTip(QString());
+#endif // QT_CONFIG(statustip)
+        prompt->setText(QCoreApplication::translate("ploatBuilder", "!", nullptr));
         buildButton->setText(QCoreApplication::translate("ploatBuilder", "Build", nullptr));
+        mouseLabel->setText(QString());
         menuFile->setTitle(QCoreApplication::translate("ploatBuilder", "File", nullptr));
         menuSetings->setTitle(QCoreApplication::translate("ploatBuilder", "Setings", nullptr));
     } // retranslateUi

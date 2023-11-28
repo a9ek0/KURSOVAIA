@@ -83,17 +83,21 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         yVector[i] = func->calculateFunction(x, func->getFXExpression()->getExpression());
 
         if(yVector[i] > maxY)// && yVector[i] <= fabs(maxBoarder) * 1.5)
-            maxY = ceil(yVector[i]);
+            maxY = yVector[i];
 
         if(yVector[i] < minY)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
-            minY = floor(yVector[i]);
+            minY = yVector[i];
+
     }
 
-    //Ыituation when the graph is a horizontal line
+    //Situation when the graph is a horizontal line
     if(maxY == minY) {
         maxY += maxY == 0 ? 1 : fabs(maxY);
         minY -= minY == 0 ? 1 : fabs(minY);
     }
+
+    maxY = ceil(maxY);
+    minY = floor(minY);
 
     //Calculating the maximum and minimum y-axis border for proper scaling
     maxY = fabs(maxY) >= (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10 ? maxBoarder * 10 : maxY;
