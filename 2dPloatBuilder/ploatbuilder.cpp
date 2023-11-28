@@ -12,6 +12,7 @@ ploatBuilder::ploatBuilder(QWidget *parent)
 
     ui->ploatInput->setVisible(false);
     ui->prompt->setVisible(false);
+    ui->label_3->setVisible(false);
 
     intValidator = new QIntValidator();
 
@@ -20,13 +21,19 @@ ploatBuilder::ploatBuilder(QWidget *parent)
 
     setMouseTracking(true);
     ui->centralwidget->setMouseTracking(true);
+    ui->mouseLabel->setMouseTracking(true);
 }
 
 void ploatBuilder::mouseMoveEvent(QMouseEvent *event)
 {
     QString text;
-    text = QString("%1 X %2").arg(event->pos().x()).arg(event->pos().y());
-    ui->mouseLabel->setText(text);
+    //Shows the coordinate of a point on the graph
+    if(event->pos().x() >= 280 && event->pos().x() <= 780 && event->pos().y() >= 60 && event->pos().y() <= 460){
+        text = QString("%1 : %2").arg(-((500 - (event->pos().x() - 280)) / (50 / plot->getIndentX()) - plot->getMaxBoarder()))
+                                 .arg(-((event->pos().y() - 60) / (50 / plot->getIndnetY()) - plot->getMaxYBoarder()));
+        ui->label_3->setText(text);
+    } else
+        ui->label_3->setText("");
 }
 
 void ploatBuilder::setGraphicsColor(int color)
@@ -76,23 +83,22 @@ void ploatBuilder::on_buildButton_clicked()
             func->getGXExpression()->setExpression(ui->function_2->text());
             func->getGXExpression()->setExpression(func->toPostfix(func->getGXExpression()->getExpression()));
         }
+        plot->setPenColor(graphicsColor);
+        plot->drawPlot(ui->GRAPH, func, drawStep, pointsNum, multyPloats);
     } catch(QString &error){
         QMessageBox::critical(nullptr, "Ошибка", error); return;
     }
 
-    //M
-    if(func->getFXExpression()->getExpression() == " "){
-        qDebug() << "1";
-        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
-        return;
-    }
-
-    plot->setPenColor(graphicsColor);
-
-    plot->drawPlot(ui->GRAPH, func, drawStep, pointsNum, multyPloats);
+//    //M
+//    if(func->getFXExpression()->getExpression() == " "){
+//        qDebug() << "1";
+//        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
+//        return;
+//    }
     ui->GRAPH->addWidget(plot);
 
     ui->prompt->setVisible(true);
+    ui->label_3->setVisible(true);
 }
 
 

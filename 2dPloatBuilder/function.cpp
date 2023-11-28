@@ -9,6 +9,7 @@ double Function::calculateFunction(double x, const QString &expression)
 {
     bool mathExpr      = false;
     double result      = 0;
+    QString error;
     QString num;
 
     QRegularExpression re("\\s* \\s*");
@@ -23,6 +24,10 @@ double Function::calculateFunction(double x, const QString &expression)
     //Evaluating an Expression in Postfix Form
     foreach (QString token, tokens) {
         if (token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) { //--exp
+            //if(variablesStack.top() == "" || variablesStack.top().contains(QRegularExpression("[+\\-*/^]"))){
+            //    error = "Проверьте функции!";
+            //    throw error;
+            //}
             variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
         } else if(token.contains(QRegularExpression("[+\\-*/^]"))){
             result = variablesStack.pop().toDouble();

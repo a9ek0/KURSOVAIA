@@ -73,6 +73,7 @@ public:
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *GRAPH;
     QLabel *mouseLabel;
+    QLabel *label_3;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuSetings;
@@ -285,7 +286,10 @@ public:
         GRAPH->setContentsMargins(0, 0, 0, 0);
         mouseLabel = new QLabel(centralwidget);
         mouseLabel->setObjectName("mouseLabel");
-        mouseLabel->setGeometry(QRect(250, 480, 49, 16));
+        mouseLabel->setGeometry(QRect(250, 20, 551, 451));
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName("label_3");
+        label_3->setGeometry(QRect(650, 22, 101, 16));
         ploatBuilder->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ploatBuilder);
         menubar->setObjectName("menubar");
@@ -367,6 +371,7 @@ public:
         prompt->setText(QCoreApplication::translate("ploatBuilder", "!", nullptr));
         buildButton->setText(QCoreApplication::translate("ploatBuilder", "Build", nullptr));
         mouseLabel->setText(QString());
+        label_3->setText(QString());
         menuFile->setTitle(QCoreApplication::translate("ploatBuilder", "File", nullptr));
         menuSetings->setTitle(QCoreApplication::translate("ploatBuilder", "Setings", nullptr));
     } // retranslateUi

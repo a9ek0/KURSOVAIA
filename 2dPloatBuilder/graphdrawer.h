@@ -35,10 +35,16 @@ public:
     void saveImage(QString fileName);
     double getMinBoarder();
     double getMaxBoarder();
+    double getMinYBoarder();
+    double getMaxYBoarder();
+    double getIndentX();
+    double getIndnetY();
+    double getOffsetX();
+    double getOffsetY();
+    double getXScaling();
+    double getYScaling();
     void deleteItemsFromGroup(QGraphicsItemGroup *group_1);
     ~GraphDrawer();
-
-signals:
 
 public slots:
     void slotAlarmTimer();
@@ -57,11 +63,20 @@ private:
 private:
     double minBoarder           = 0;
     double maxBoarder           = 0;
+    double minYBoarder          = 0;
+    double maxYBoarder          = 0;
 
 private:
     int width                   = 520;
     int height                  = 420;
     int penColor                = 0;
+    double offsetx              = 0;
+    double offsety              = 0;
+    double xScaling             = 0;
+    double yScaling             = 0;
+    double indentX              = 0;
+    double indentY              = 0;
+
 };
 
 #endif // MYGRAPHICVIEW_H

@@ -54,74 +54,75 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     QPen pen(Qt::blue);
 
     std::vector<double>  yVector(pointsNum / drawStep);
-    double yScaling      = 0;
-    double offsety       = 0;
+    yScaling      = 0;
     double ytmp          = 0;
     double y             = 0;
-    double maxY          = -__DBL_MAX__;//*func->calculateFunction(*/fabs(minBoarder) * (-1.5)/*)*/;
-    double minY          = __DBL_MAX__;//*func->calculateFunction(*/fabs(maxBoarder) * 1.5/*)*/;
+    maxYBoarder          = -__DBL_MAX__;
+    minYBoarder          = __DBL_MAX__;
 
-    double xScaling      = fabs((width  - 20)/ ((fabs(maxBoarder) + fabs(minBoarder))));
-    double offsetx       = 0;
+    xScaling      = fabs((width  - 20)/ ((fabs(maxBoarder) + fabs(minBoarder))));
     double scaledX       = 0;
     double xtmp          = minBoarder;
 
-    double indent        = 0;
+    //double indent        = 0;
 
     //Calculating X
-    indent = minBoarder > 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : minBoarder < 0 && maxBoarder < 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : (fabs(maxBoarder) + fabs(minBoarder)) / 10;
-    for(double i = maxBoarder; i > -maxBoarder; i-=indent ){
+    indentX = minBoarder > 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : minBoarder < 0 && maxBoarder < 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : (fabs(maxBoarder) + fabs(minBoarder)) / 10;
+    for(double i = maxBoarder; i > -maxBoarder; i-=indentX ){
         if(i < 1){
             break;
         }
     }
 
-    offsetx = (fabs(maxBoarder) / indent * 50);
+    offsetx = (fabs(maxBoarder) / indentX * 50);
 
     //Calculating y
     for(double x = -pointsNum / 2, i = 0; x < pointsNum / 2; x += drawStep , i++){
+        try{
         yVector[i] = func->calculateFunction(x, func->getFXExpression()->getExpression());
+        } catch(QString &error){
+            throw error;
+        }
+        if(yVector[i] > maxYBoarder)// && yVector[i] <= fabs(maxBoarder) * 1.5)
+            maxYBoarder = yVector[i];
 
-        if(yVector[i] > maxY)// && yVector[i] <= fabs(maxBoarder) * 1.5)
-            maxY = yVector[i];
-
-        if(yVector[i] < minY)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
-            minY = yVector[i];
+        if(yVector[i] < minYBoarder)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
+            minYBoarder = yVector[i];
 
     }
 
     //Situation when the graph is a horizontal line
-    if(maxY == minY) {
-        maxY += maxY == 0 ? 1 : fabs(maxY);
-        minY -= minY == 0 ? 1 : fabs(minY);
+    if(maxYBoarder == minYBoarder) {
+        maxYBoarder += maxYBoarder == 0 ? 1 : fabs(maxYBoarder);
+        minYBoarder -= minYBoarder == 0 ? 1 : fabs(minYBoarder);
     }
 
-    maxY = ceil(maxY);
-    minY = floor(minY);
+    maxYBoarder = ceil(maxYBoarder);
+    minYBoarder = floor(minYBoarder);
 
     //Calculating the maximum and minimum y-axis border for proper scaling
-    maxY = fabs(maxY) >= (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10 ? maxBoarder * 10 : maxY;
-    minY = fabs(minY) >= (fabs(minBoarder) == 0 ? fabs(maxBoarder) : fabs(minBoarder)) * 10 ? minBoarder * 10 : minY;
+    maxYBoarder = fabs(maxYBoarder) >= (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10 ? maxBoarder * 10 : maxYBoarder;
+    minYBoarder = fabs(minYBoarder) >= (fabs(minBoarder) == 0 ? fabs(maxBoarder) : fabs(minBoarder)) * 10 ? minBoarder * 10 : minYBoarder;
 
-    indent = minY > 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : minY < 0 && maxY < 0 ? fabs(fabs(maxY) - fabs(minY)) / 8 : (fabs(maxY) + fabs(minY)) / 8;
-    for(double i = maxY; i > -maxY; i-=indent ){
+    indentY = minYBoarder > 0 ? fabs(fabs(maxYBoarder) - fabs(minYBoarder)) / 8 : minYBoarder < 0 && maxYBoarder < 0 ? fabs(fabs(maxYBoarder) - fabs(minYBoarder)) / 8 : (fabs(maxYBoarder) + fabs(minYBoarder)) / 8;
+    for(double i = maxYBoarder; i > -maxYBoarder; i-=indentY ){
         if(i < 1){
             break;
         }
     }
 
-    offsety = (fabs(maxY) / indent * 50);
+    offsety = (fabs(maxYBoarder) / indentY * 50);
 
 
 
-    yScaling = fabs((height - 20)/ ((fabs(maxY) + fabs(minY))));
+    yScaling = fabs((height - 20) / ((fabs(maxYBoarder) + fabs(minYBoarder))));
 
     //Draw axes
     pen.setWidth(0.5);
     pen.setStyle(Qt::SolidLine);
     pen.setColor(Qt::gray);
     group_2->addToGroup(scene->addLine(width - (maxBoarder >= 0 ? offsetx : (-offsetx)), 0, width - (maxBoarder >= 0 ? offsetx : -offsetx), height - 20, pen));
-    group_2->addToGroup(scene->addLine(20, height - (height - (maxY >= 0 ? offsety : -offsety)), width, height - (height - (maxY >= 0 ? offsety : -offsety)), pen));
+    group_2->addToGroup(scene->addLine(20, height - (height - (maxYBoarder >= 0 ? offsety : -offsety)), width, height - (height - (maxYBoarder >= 0 ? offsety : -offsety)), pen));
 
     //Draw plot
     pen.setWidth(1);
@@ -136,8 +137,8 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         y *= -yScaling;
 
     //Draw Lines
-        if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (/*minBoarder*/minY == 0 ? 1 : /*maxBoarder*/maxY == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))
-            group_2->addToGroup(scene->addLine(scaledX + width - (maxBoarder >= 0 ? offsetx : -offsetx), ytmp + (maxY >= 0 ? offsety : -offsety), xtmp + width - (maxBoarder >= 0 ? offsetx : -offsetx), y + (maxY >= 0 ? offsety : -offsety), pen));
+        if(scaledX > -((width - 20) - offsetx) && scaledX < offsetx  && i > 0 && y > (/*minBoarder*/minYBoarder == 0 ? 1 : /*maxBoarder*/maxYBoarder == 0 ? -1 : 1)*(y - offsety) && y < ((height - 20) - offsety))
+            group_2->addToGroup(scene->addLine(scaledX + width - (maxBoarder >= 0 ? offsetx : -offsetx), ytmp + (maxYBoarder >= 0 ? offsety : -offsety), xtmp + width - (maxBoarder >= 0 ? offsetx : -offsetx), y + (maxYBoarder >= 0 ? offsety : -offsety), pen));
 
         xtmp = scaledX;
         ytmp = y;
@@ -154,7 +155,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     group_2->addToGroup(scene->addLine(5, -11, 5, height - 25, pen));
     group_2->addToGroup(scene->addLine(30, height - 4, width + 20, height - 4, pen));
 
-    numberAxes(maxY, minY);
+    numberAxes(maxYBoarder, minYBoarder);
 
 }
 
@@ -163,7 +164,7 @@ void GraphDrawer::numberAxes(double yMaxBoarder, double yMinBoarder)
     //Delete numbers from plot
     this->deleteItemsFromGroup(group_3);
 
-    double indent = 0;
+    //double indent = 0;
     double minX   = fabs(minBoarder);
     double maxX   = fabs(maxBoarder);
     double minY   = fabs(yMinBoarder);
@@ -175,8 +176,8 @@ void GraphDrawer::numberAxes(double yMaxBoarder, double yMinBoarder)
 
     //Сalculation of numbers based on the minimum and maximum boundaries and installation on a chart
     //For x
-    indent = minBoarder > 0 ? fabs(maxX - minX) / 10 : minBoarder < 0 && maxBoarder < 0 ? fabs(maxX - minX) / 10 : (maxX + minX) / 10;
-    for(double i = maxBoarder, j = 0; j < 11; i -= indent, j++){
+    indentX = minBoarder > 0 ? fabs(maxX - minX) / 10 : minBoarder < 0 && maxBoarder < 0 ? fabs(maxX - minX) / 10 : (maxX + minX) / 10;
+    for(double i = maxBoarder, j = 0; j < 11; i -= indentX, j++){
         text = QString::number(round(i * 10.0) / 10.0);
 
         numberItem = new QGraphicsTextItem(text);
@@ -186,8 +187,8 @@ void GraphDrawer::numberAxes(double yMaxBoarder, double yMinBoarder)
     }
 
     //For y
-    indent = yMinBoarder > 0 ? fabs(maxY - minY) / 8 : yMinBoarder < 0 && yMaxBoarder < 0 ? fabs(maxY - minY) / 8 : (maxY + minY) / 8;
-    for(double i = yMaxBoarder, j = 0; j < 9; i -= indent, j++){
+    indentY = yMinBoarder > 0 ? fabs(maxY - minY) / 8 : yMinBoarder < 0 && yMaxBoarder < 0 ? fabs(maxY - minY) / 8 : (maxY + minY) / 8;
+    for(double i = yMaxBoarder, j = 0; j < 9; i -= indentY, j++){
         text = QString::number(round(i * 10.0) / 10.0);
 
         numberItem = new QGraphicsTextItem(text);
@@ -229,6 +230,46 @@ double GraphDrawer::getMinBoarder()
 double GraphDrawer::getMaxBoarder()
 {
     return maxBoarder;
+}
+
+double GraphDrawer::getMinYBoarder()
+{
+    return minYBoarder;
+}
+
+double GraphDrawer::getMaxYBoarder()
+{
+    return maxYBoarder;
+}
+
+double GraphDrawer::getIndentX()
+{
+    return this->indentX;
+}
+
+double GraphDrawer::getIndnetY()
+{
+    return this->indentY;
+}
+
+double GraphDrawer::getOffsetX()
+{
+    return this->offsetx;
+}
+
+double GraphDrawer::getOffsetY()
+{
+    return this->offsety;
+}
+
+double GraphDrawer::getXScaling()
+{
+    return this->xScaling;
+}
+
+double GraphDrawer::getYScaling()
+{
+    return this->yScaling;
 }
 
 QPen GraphDrawer::getPenColor()

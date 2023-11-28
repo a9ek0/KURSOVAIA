@@ -44,7 +44,7 @@ QString Parser::toPostfix(QString expression)
     QString previousToken   = " ";
 
     QStack<QString> mathStack;
-    QString mathExpr            = " ";
+    QString mathExpr        = " ";
 
     int brace               = 0;
 
@@ -67,6 +67,10 @@ QString Parser::toPostfix(QString expression)
             brace++;
             previousToken = "(";
         } else if(token.contains(QRegularExpression("[)]")) && brace > 0){
+            if(previousToken == "(") {
+                error = "Проверьте скобки!";
+                throw error;
+            }
             while (operatorStack.top() != "(") {
                 normalized_str += operatorStack.pop();
                 normalized_str += ' ';
@@ -96,10 +100,12 @@ QString Parser::toPostfix(QString expression)
                 error = "Проверьте знаки!";
                 throw error;
             }
+
             while (!operatorStack.isEmpty() && (priority[token] <= priority[operatorStack.top()])) {
                 normalized_str += operatorStack.pop();
                 normalized_str += ' ';
             }
+
             if(token.contains(QRegularExpression("[+\\*/)]")) && previousToken == "(") {
                 error = "Проверьте знаки!";
                 throw error;
@@ -108,7 +114,9 @@ QString Parser::toPostfix(QString expression)
                 previousToken = "neg";
                 continue;
             }
+
             previousToken = token;
+
 
             operatorStack.push(token);
 
@@ -125,6 +133,10 @@ QString Parser::toPostfix(QString expression)
                     previousToken = 'e';
                     continue;
                 } else if(token == '^') {
+                    if(previousToken == "(") {
+                        error = "Проверьте знаки";
+                        throw error;
+                    }
                     previousToken = '^';
                     continue;
                 } else {
