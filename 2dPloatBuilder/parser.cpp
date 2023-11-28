@@ -28,8 +28,8 @@ QString Parser::toPostfix(QString expression)
     expression = replaceAllOccurrences(expression, "ctg", "ctg ");
     expression = replaceAllOccurrences(expression, "tg", "tg ");
     expression = replaceAllOccurrences(expression, "pi", "p ");
+    expression = replaceAllOccurrences(expression, "exp", "xp ");
     expression = replaceAllOccurrences(expression, "e", "e ");
-    //this->expression = replaceAllOccurrences(expression, "exp", "ep ");
     expression = replaceAllOccurrences(expression, "log", "log ");
     expression = replaceAllOccurrences(expression, "lg", "lg ");
     expression = replaceAllOccurrences(expression, "sqrt", "sqrt ");
@@ -50,7 +50,9 @@ QString Parser::toPostfix(QString expression)
 
     //Generating a postfix notation of a given expression
     foreach (QString token, tokens) {
-        if(token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){ //--exp
+        validateToken(token);
+
+        if(token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))){ //--exp
             previousToken = token;
             if(mathExpr != " "){
                 mathStack.push(mathExpr);
@@ -111,7 +113,7 @@ QString Parser::toPostfix(QString expression)
             operatorStack.push(token);
 
         } else{
-            if(!token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))){
+            if(!token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))){
                 if(token == 'p') {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
@@ -169,6 +171,19 @@ Expression* Parser::getFXExpression() const{
 
 Expression* Parser::getGXExpression() const{
     return gXExpression;
+}
+
+void Parser::validateToken(QString token)
+{
+    bool isDouble = false;
+    QString error = "Проверьте ввод!";
+
+    token.toDouble(&isDouble);
+    if(isDouble == false){
+        if (!token.contains(QRegularExpression("cos|sin|tg|ctg|fabs|sqrt|lg|log|xp|p|e|x|\\+|\\-|\\*|\\(|\\)|\\/|\\^")))
+            throw error;
+    } else
+        return;
 }
 
 QString Parser::calculateInBracers(QStringList tokens){

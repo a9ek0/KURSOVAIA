@@ -11,6 +11,7 @@
 #include <QLayoutItem>
 #include <QFileDialog>
 #include <QImageWriter>
+#include <QValidator>
 #include <QtConcurrent/QtConcurrent>
 #include <QtPrintSupport/QPrintDialog>
 
@@ -32,6 +33,8 @@ class ploatBuilder : public QMainWindow
 public:
     ploatBuilder(QWidget *parent = nullptr);
     void setGraphicsColor(int color);
+    void setData(QString fXFunction, QString gXFunction, int graphicsColor, int pointsNum, double drawStep,
+                 double minBoarder, double maxBoarder, bool multyPloats);
     ~ploatBuilder();
 
 private slots:
@@ -46,13 +49,9 @@ private slots:
     void on_actionYellow_triggered();
     void on_actionParameters_triggered();
     void on_multyPloats_stateChanged(int arg1);
-
     void on_comboBox_currentIndexChanged(int index);
-
     void on_comboBox_currentTextChanged(const QString &arg1);
-
     void on_radius_editingFinished();
-
     void on_ploatInput_editingFinished();
 
 public slots:
@@ -79,5 +78,8 @@ private:
 private:
     Cardioid          *cardioid;
     Deltoid           *deltoid;
+
+private:
+    QIntValidator *intValidator;
 };
 #endif // PLOATBUILDER_H

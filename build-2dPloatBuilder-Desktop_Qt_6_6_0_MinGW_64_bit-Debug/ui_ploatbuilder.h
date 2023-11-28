@@ -173,7 +173,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(ploatInput->sizePolicy().hasHeightForWidth());
         ploatInput->setSizePolicy(sizePolicy);
-        ploatInput->setMaximumSize(QSize(0, 100));
+        ploatInput->setMaximumSize(QSize(115, 100));
         ploatInput->setLayoutDirection(Qt::RightToLeft);
         ploatInput->setFrame(true);
         ploatInput->setEchoMode(QLineEdit::Normal);

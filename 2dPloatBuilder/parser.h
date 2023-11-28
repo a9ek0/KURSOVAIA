@@ -34,7 +34,7 @@ public:
     QString toPostfix(QString expression);
     Expression* getFXExpression() const;
     Expression* getGXExpression() const;
-    bool validateExpression();
+    void validateToken(QString token);
 
 
 protected:

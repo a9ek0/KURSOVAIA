@@ -22,7 +22,7 @@ double Function::calculateFunction(double x, const QString &expression)
 
     //Evaluating an Expression in Postfix Form
     foreach (QString token, tokens) {
-        if (token.contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs]"))) { //--exp
+        if (token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) { //--exp
             variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
         } else if(token.contains(QRegularExpression("[+\\-*/^]"))){
             result = variablesStack.pop().toDouble();
@@ -53,7 +53,7 @@ double Function::calculateFunction(double x, const QString &expression)
 
     result = variablesStack.pop().toDouble();
     //The case when the expression contains only math expression
-    if (variablesStack.top().contains(QRegularExpression("[cos sin ctg tg log lg sqrt fabs neg]"))) { //--exp
+    if (variablesStack.top().contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|neg"))) { //--exp
         result = calcualteMath(variablesStack.pop(), result);
     }
 
@@ -69,7 +69,7 @@ double Function::calcualteMath(QString function, double operand) {
         return qAtan(operand);
     } else if (function == "tg") {
         return qTan(operand);
-    } else if (function == "ep") {
+    } else if (function == "xp") {
         return qExp(operand);
     } else if (function == "log") {
         return log(operand);
