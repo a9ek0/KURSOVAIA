@@ -27,13 +27,22 @@ ploatBuilder::ploatBuilder(QWidget *parent)
 void ploatBuilder::mouseMoveEvent(QMouseEvent *event)
 {
     QString text;
+    double x = 0;
+    double y = 0;
     //Shows the coordinate of a point on the graph
-    if(event->pos().x() >= 280 && event->pos().x() <= 780 && event->pos().y() >= 60 && event->pos().y() <= 460){
-        text = QString("%1 : %2").arg(-((500 - (event->pos().x() - 280)) / (50 / plot->getIndentX()) - plot->getMaxBoarder()))
-                                 .arg(-((event->pos().y() - 60) / (50 / plot->getIndnetY()) - plot->getMaxYBoarder()));
-        ui->label_3->setText(text);
-    } else
-        ui->label_3->setText("");
+    if(event->pos().x() >= 280 && event->pos().x() <= 780 && event->pos().y() >= 60 && event->pos().y() <= 460 && ui->label_3->isVisible()){
+        plot->delToAxesLaneNumbers();
+        x = -((500 - (event->pos().x() - 280)) / (50 / plot->getIndentX()) - plot->getMaxBoarder());
+        y = -((event->pos().y() - 60) / (50 / plot->getIndnetY()) - plot->getMaxYBoarder());
+//      text = QString("%1 : %2").arg(x).arg(y);
+//      ui->label_3->setText(text);
+        plot->drawToAxesLane(event->pos().x() - 260, event->pos().y() - 60, 20, event->pos().y() - 60, 1);
+        plot->drawToAxesLane(event->pos().x() - 260, event->pos().y() - 60, event->pos().x() - 260, 400, 0);
+        plot->setToAxesNumbers(event->pos().x(), event->pos().y(), round(x * 10) / 10, round(y * 10) / 10);
+    } else{
+//      ui->label_3->setText("");
+        plot->delToAxesLaneNumbers();
+    }
 }
 
 void ploatBuilder::setGraphicsColor(int color)
@@ -95,6 +104,7 @@ void ploatBuilder::on_buildButton_clicked()
 //        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
 //        return;
 //    }
+
     ui->GRAPH->addWidget(plot);
 
     ui->prompt->setVisible(true);

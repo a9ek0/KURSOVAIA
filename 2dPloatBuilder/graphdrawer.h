@@ -43,6 +43,9 @@ public:
     double getOffsetY();
     double getXScaling();
     double getYScaling();
+    void drawToAxesLane(double x1, double y1, double x2, double y2, int color);
+    void setToAxesNumbers(double x, double y, double xNum, double yNum);
+    void delToAxesLaneNumbers();
     void deleteItemsFromGroup(QGraphicsItemGroup *group_1);
     ~GraphDrawer();
 
@@ -54,6 +57,7 @@ private:
     QGraphicsItemGroup          *group_1;
     QGraphicsItemGroup          *group_2;
     QGraphicsItemGroup          *group_3;
+    QGraphicsItemGroup          *group_4;
     QGraphicsScene              *scene;
     QTimer                      *timer;
 

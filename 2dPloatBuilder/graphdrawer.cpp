@@ -17,10 +17,12 @@ GraphDrawer::GraphDrawer(QWidget *parent)
     group_1 = new QGraphicsItemGroup();
     group_2 = new QGraphicsItemGroup();
     group_3 = new QGraphicsItemGroup();
+    group_4 = new QGraphicsItemGroup();
 
     scene->addItem(group_1);
     scene->addItem(group_2);
     scene->addItem(group_3);
+    scene->addItem(group_4);
 
     timer = new QTimer();
     timer->setSingleShot(true);
@@ -164,12 +166,10 @@ void GraphDrawer::numberAxes(double yMaxBoarder, double yMinBoarder)
     //Delete numbers from plot
     this->deleteItemsFromGroup(group_3);
 
-    //double indent = 0;
     double minX   = fabs(minBoarder);
     double maxX   = fabs(maxBoarder);
     double minY   = fabs(yMinBoarder);
     double maxY   = fabs(yMaxBoarder);
-
 
     QString text;
     QGraphicsTextItem *numberItem;
@@ -270,6 +270,52 @@ double GraphDrawer::getXScaling()
 double GraphDrawer::getYScaling()
 {
     return this->yScaling;
+}
+
+
+
+void GraphDrawer::drawToAxesLane(double x1, double y1, double x2, double y2, int color)
+{
+    QPen pen;
+
+    switch (color) {
+    case 0:
+        pen.setColor(Qt::red);
+        break;
+    case 1:
+        pen.setColor(Qt::green);
+        break;
+    default:
+        pen.setColor(Qt::red);
+        break;
+    }
+
+    pen.setWidth(0.5);
+    pen.setStyle(Qt::DashLine);
+    pen.setDashOffset(10);
+
+    group_4->addToGroup(scene->addLine(x1, y1, x2, y2, pen));
+}
+
+void GraphDrawer::setToAxesNumbers(double x, double y, double xNum, double yNum)
+{
+    QGraphicsTextItem *numberItem;
+
+
+    numberItem = new QGraphicsTextItem(QString::number(yNum));
+    numberItem->setDefaultTextColor(QColor(Qt::green));
+    numberItem->setPos(-10, y - 72.5);
+    group_4->addToGroup(numberItem);
+
+    numberItem = new QGraphicsTextItem(QString::number(xNum));
+    numberItem->setDefaultTextColor(QColor(Qt::red));
+    numberItem->setPos(x - 270, 400);
+    group_4->addToGroup(numberItem);
+}
+
+void GraphDrawer::delToAxesLaneNumbers()
+{
+    this->deleteItemsFromGroup(group_4);
 }
 
 QPen GraphDrawer::getPenColor()

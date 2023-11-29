@@ -31,10 +31,16 @@ double Function::calculateFunction(double x, const QString &expression)
             variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
         } else if(token.contains(QRegularExpression("[+\\-*/^]"))){
             result = variablesStack.pop().toDouble();
+
+            if(variablesStack.top() == "" && token != "-") {
+                error = "Неверные операнды!";
+                throw error;
+            }
+
             if(token == '+'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() + result));
             } else if(token == '-'){
-                //Case when - it the first char in function
+                //Case when - is the first char in function
                 if(variablesStack.top() == ""){
                     variablesStack.push(QString::number(calcualteMath("neg", result)));
                     continue;
@@ -45,6 +51,7 @@ double Function::calculateFunction(double x, const QString &expression)
             } else if(token == '/'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() / result));
             } else if(token == '^'){
+                qDebug() << result << " " << variablesStack.top();
                 variablesStack.push(QString::number(pow(variablesStack.pop().toDouble(), result)));
             }
         } else {

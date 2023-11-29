@@ -52,25 +52,28 @@ QString Parser::toPostfix(QString expression)
     foreach (QString token, tokens) {
         validateToken(token);
 
-        if(token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))){ //--exp
+        if(token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) {
             previousToken = token;
             if(mathExpr != " "){
                 mathStack.push(mathExpr);
             }
             mathExpr = token;
         }
-        if(token.contains(QRegularExpression("[(]"))){
+
+        if(token.contains(QRegularExpression("[(]"))) {
             if(previousToken == "^")
                 operatorStack.push("^");
 
             operatorStack.push("(");
             brace++;
             previousToken = "(";
-        } else if(token.contains(QRegularExpression("[)]")) && brace > 0){
+        } else if(token.contains(QRegularExpression("[)]")) && brace > 0) {
             if(previousToken == "(") {
-                error = "Проверьте скобки!";
+                error = "Отсутствует выражение \n"
+                        "в скобках!";
                 throw error;
             }
+
             while (operatorStack.top() != "(") {
                 normalized_str += operatorStack.pop();
                 normalized_str += ' ';
@@ -79,7 +82,7 @@ QString Parser::toPostfix(QString expression)
             operatorStack.pop();
             brace--;
 
-            if(!operatorStack.isEmpty() && operatorStack.top() == "^"){
+            if(!operatorStack.isEmpty() && operatorStack.top() == "^") {
                 normalized_str += operatorStack.pop();
                 normalized_str += ' ';
             }
@@ -95,8 +98,8 @@ QString Parser::toPostfix(QString expression)
                 }
                 continue;
             }
-        } else if(token.contains(QRegularExpression("[+\\-*/)]"))){
-            if(previousToken.contains(QRegularExpression("[+\\-*/]"))){
+        } else if(token.contains(QRegularExpression("[+\\-*/)]"))) {
+            if(previousToken.contains(QRegularExpression("[+\\-*/^]"))) {
                 error = "Проверьте знаки!";
                 throw error;
             }
@@ -109,7 +112,7 @@ QString Parser::toPostfix(QString expression)
             if(token.contains(QRegularExpression("[+\\*/)]")) && previousToken == "(") {
                 error = "Проверьте знаки!";
                 throw error;
-            } else if(token == "-" && previousToken == "("){
+            } else if(token == "-" && previousToken == "(") {
                 operatorStack.push("neg");
                 previousToken = "neg";
                 continue;
@@ -133,8 +136,8 @@ QString Parser::toPostfix(QString expression)
                     previousToken = 'e';
                     continue;
                 } else if(token == '^') {
-                    if(previousToken == "(") {
-                        error = "Проверьте знаки";
+                    if(previousToken.contains(QRegularExpression("[+\\-*/^(]"))) {
+                        error = "Проверьте знаки!";
                         throw error;
                     }
                     previousToken = '^';
