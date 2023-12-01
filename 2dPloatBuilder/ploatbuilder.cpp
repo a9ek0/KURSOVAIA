@@ -14,10 +14,13 @@ ploatBuilder::ploatBuilder(QWidget *parent)
     ui->prompt->setVisible(false);
     ui->label_3->setVisible(false);
 
+
     intValidator = new QIntValidator();
+    doubleValidator = new QDoubleValidator();
 
     ui->minRange->setValidator(intValidator);
     ui->maxRange->setValidator(intValidator);
+    ui->ploatInput->setValidator(doubleValidator);
 
     setMouseTracking(true);
     ui->centralwidget->setMouseTracking(true);
@@ -34,13 +37,11 @@ void ploatBuilder::mouseMoveEvent(QMouseEvent *event)
         plot->delToAxesLaneNumbers();
         x = -((500 - (event->pos().x() - 280)) / (50 / plot->getIndentX()) - plot->getMaxBoarder());
         y = -((event->pos().y() - 60) / (50 / plot->getIndnetY()) - plot->getMaxYBoarder());
-//      text = QString("%1 : %2").arg(x).arg(y);
-//      ui->label_3->setText(text);
+
         plot->drawToAxesLane(event->pos().x() - 260, event->pos().y() - 60, 20, event->pos().y() - 60, 1);
         plot->drawToAxesLane(event->pos().x() - 260, event->pos().y() - 60, event->pos().x() - 260, 400, 0);
         plot->setToAxesNumbers(event->pos().x(), event->pos().y(), round(x * 10) / 10, round(y * 10) / 10);
     } else{
-//      ui->label_3->setText("");
         plot->delToAxesLaneNumbers();
     }
 }
@@ -60,7 +61,7 @@ void ploatBuilder::setData(QString fXFunction, QString gXFunction, int graphicsC
     ui->minRange->setText(QString::number(minBoarder));
     ui->maxRange->setText(QString::number(maxBoarder));
 
-    ui->multyPloats->setChecked(multyPloats);
+    //ui->multyPloats->setChecked(multyPloats);
 
     this->drawStep  = drawStep;
     this->pointsNum = pointsNum;
@@ -341,4 +342,36 @@ void ploatBuilder::on_prompt_clicked()
 {
     ui->prompt->setVisible(false);
 }
+
+
+void ploatBuilder::on_ploatInput_textChanged(const QString &arg1)
+{
+    switch (ui->comboBox->currentIndex()) {
+    case 0:
+        break;
+    case 1:
+        cardioid = new Cardioid(ui->ploatInput->text().toDouble());
+
+        setData(cardioid->getFXFunction(), cardioid->getGXFunction(), cardioid->getGraphicsColor(), cardioid->getPointsNum(),
+                cardioid->getDrawStep(), cardioid->getMinBoarder(), cardioid->getMaxBoarder(), cardioid->getMultyPloats());
+
+        break;
+    case 2:
+        deltoid = new Deltoid(ui->ploatInput->text().toDouble());
+
+        setData(deltoid->getFXFunction(), deltoid->getGXFunction(), deltoid->getGraphicsColor(), deltoid->getPointsNum(),
+                deltoid->getDrawStep(), deltoid->getMinBoarder(), deltoid->getMaxBoarder(), deltoid->getMultyPloats());
+
+        break;
+    default:
+        break;
+    }
+
+    ui->function->setCursorPosition(0);
+    ui->function_2->setCursorPosition(0);
+
+    //ui->ploatInput->clearFocus();
+}
+
+
 

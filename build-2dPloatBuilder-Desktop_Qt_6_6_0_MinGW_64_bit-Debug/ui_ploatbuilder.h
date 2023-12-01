@@ -117,7 +117,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 231, 481));
+        verticalLayoutWidget->setGeometry(QRect(10, 10, 239, 481));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -370,6 +370,9 @@ public:
 #endif // QT_CONFIG(statustip)
         prompt->setText(QCoreApplication::translate("ploatBuilder", "!", nullptr));
         buildButton->setText(QCoreApplication::translate("ploatBuilder", "Build", nullptr));
+#if QT_CONFIG(shortcut)
+        buildButton->setShortcut(QCoreApplication::translate("ploatBuilder", "Return", nullptr));
+#endif // QT_CONFIG(shortcut)
         mouseLabel->setText(QString());
         label_3->setText(QString());
         menuFile->setTitle(QCoreApplication::translate("ploatBuilder", "File", nullptr));

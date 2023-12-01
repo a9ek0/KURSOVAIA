@@ -23,11 +23,7 @@ double Function::calculateFunction(double x, const QString &expression)
 
     //Evaluating an Expression in Postfix Form
     foreach (QString token, tokens) {
-        if (token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) { //--exp
-            //if(variablesStack.top() == "" || variablesStack.top().contains(QRegularExpression("[+\\-*/^]"))){
-            //    error = "Проверьте функции!";
-            //    throw error;
-            //}
+        if (token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp|neg"))) {
             variablesStack.push(QString::number(calcualteMath(token, variablesStack.pop().toDouble())));
         } else if(token.contains(QRegularExpression("[+\\-*/^]"))){
             result = variablesStack.pop().toDouble();
@@ -51,7 +47,6 @@ double Function::calculateFunction(double x, const QString &expression)
             } else if(token == '/'){
                 variablesStack.push(QString::number(variablesStack.pop().toDouble() / result));
             } else if(token == '^'){
-                qDebug() << result << " " << variablesStack.top();
                 variablesStack.push(QString::number(pow(variablesStack.pop().toDouble(), result)));
             }
         } else {

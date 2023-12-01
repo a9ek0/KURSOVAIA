@@ -34,7 +34,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>231</width>
+      <width>239</width>
       <height>481</height>
      </rect>
     </property>
@@ -364,6 +364,9 @@
        </property>
        <property name="text">
         <string>Build</string>
+       </property>
+       <property name="shortcut">
+        <string>Return</string>
        </property>
       </widget>
      </item>

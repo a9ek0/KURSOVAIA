@@ -54,19 +54,22 @@ QString Parser::toPostfix(QString expression)
 
         if(token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) {
             previousToken = token;
-            if(mathExpr != " "){
-                mathStack.push(mathExpr);
-            }
+           // if(mathExpr != " "){
             mathExpr = token;
+                mathStack.push(mathExpr);
+            //}
         }
 
         if(token.contains(QRegularExpression("[(]"))) {
             if(previousToken == "^")
                 operatorStack.push("^");
 
-            operatorStack.push("(");
-            brace++;
-            previousToken = "(";
+                operatorStack.push("(");
+                brace++;
+                previousToken = "(";
+
+                if(mathExpr != " ")
+                    mathStack.push("(");
         } else if(token.contains(QRegularExpression("[)]")) && brace > 0) {
             if(previousToken == "(") {
                 error = "Отсутствует выражение \n"
@@ -74,10 +77,12 @@ QString Parser::toPostfix(QString expression)
                 throw error;
             }
 
+
             while (operatorStack.top() != "(") {
                 normalized_str += operatorStack.pop();
                 normalized_str += ' ';
             }
+
 
             operatorStack.pop();
             brace--;
@@ -89,17 +94,20 @@ QString Parser::toPostfix(QString expression)
 
             previousToken = ")";
 
-            if(mathExpr != " "){
+            if(!mathStack.isEmpty()){
+                if(mathStack.top() == "(")
+                    mathStack.pop();
+                mathExpr = mathStack.pop();
+            }
+
+            if(mathExpr != " " && mathExpr != "(") {
                 normalized_str += mathExpr;
                 normalized_str += ' ';
                 mathExpr = " ";
-                if(!mathStack.empty()){
-                    mathExpr = mathStack.pop();
-                }
                 continue;
             }
         } else if(token.contains(QRegularExpression("[+\\-*/)]"))) {
-            if(previousToken.contains(QRegularExpression("[+\\-*/^]"))) {
+            if(previousToken.contains(QRegularExpression("cos|sin|tg|ctg|fabs|sqrt|lg|log|xp|\\+|\\-|\\*|\\/|\\^"))) {
                 error = "Проверьте знаки!";
                 throw error;
             }
@@ -125,6 +133,10 @@ QString Parser::toPostfix(QString expression)
 
         } else{
             if(!token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))){
+                if(previousToken.contains(QRegularExpression("cos|sin|tg|ctg|fabs|sqrt|lg|log|xp"))){
+                    error = "Отсутствуют скобки \nфункции!";
+                    throw error;
+                }
                 if(token == 'p') {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';

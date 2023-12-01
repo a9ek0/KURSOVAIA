@@ -54,6 +54,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         this->deleteItemsFromGroup(group_2);
 
     QPen pen(Qt::blue);
+    QString error = "";
 
     std::vector<double>  yVector(pointsNum / drawStep);
     yScaling      = 0;
@@ -85,13 +86,25 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         } catch(QString &error){
             throw error;
         }
-        if(yVector[i] > maxYBoarder)// && yVector[i] <= fabs(maxBoarder) * 1.5)
+        if(yVector[i] > maxYBoarder)
             maxYBoarder = yVector[i];
 
-        if(yVector[i] < minYBoarder)// && yVector[i]) >= fabs(minBoarder) * (-1.5))
+        if(yVector[i] < minYBoarder)
             minYBoarder = yVector[i];
 
     }
+
+    //The grpah goes beyond the possible limits
+    if(fabs(minYBoarder) > ((fabs(minBoarder) == 0 ? fabs(maxBoarder) : fabs(minBoarder)) * 10) || (fabs(maxYBoarder) > (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10))
+    {
+        error = "\nизменение максимальной \nграницы на " + QString::number((maxBoarder / fabs(maxBoarder))*ceil(fabs(maxYBoarder) / 10)) + ", ";
+        error += "и минимальной \nна " + QString::number((minBoarder / fabs(minBoarder))*ceil(fabs(minYBoarder) / 10)) + "!";
+
+        QMessageBox::warning(nullptr, "Предупреждение", "При некорректном отображении \nграфика может потребоваться " + error, "Ок");
+        //throw error;
+    }
+
+
 
     //Situation when the graph is a horizontal line
     if(maxYBoarder == minYBoarder) {

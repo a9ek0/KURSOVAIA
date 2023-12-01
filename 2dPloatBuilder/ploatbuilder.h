@@ -58,6 +58,8 @@ private slots:
 
     void on_prompt_clicked();
 
+    void on_ploatInput_textChanged(const QString &arg1);
+
 public slots:
     void receiveData(int color, int pointsNum, double drawStep);
 
@@ -85,5 +87,6 @@ private:
 
 private:
     QIntValidator *intValidator;
+    QDoubleValidator *doubleValidator;
 };
 #endif // PLOATBUILDER_H
