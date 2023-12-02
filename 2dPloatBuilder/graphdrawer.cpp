@@ -97,11 +97,10 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     //The grpah goes beyond the possible limits
     if(fabs(minYBoarder) > ((fabs(minBoarder) == 0 ? fabs(maxBoarder) : fabs(minBoarder)) * 10) || (fabs(maxYBoarder) > (fabs(maxBoarder) == 0 ? fabs(minBoarder) : fabs(maxBoarder)) * 10))
     {
-        error = "\nизменение максимальной \nграницы на " + QString::number((maxBoarder / fabs(maxBoarder))*ceil(fabs(maxYBoarder) / 10)) + ", ";
-        error += "и минимальной \nна " + QString::number((minBoarder / fabs(minBoarder))*ceil(fabs(minYBoarder) / 10)) + "!";
+        error = "\nизменените максимальную \nграницу на " + QString::number((maxBoarder / fabs(maxBoarder))*ceil(fabs(maxYBoarder) / 10)) + ", ";
+        error += "\nи минимальную на " + QString::number((minBoarder / fabs(minBoarder))*ceil(fabs(minYBoarder) / 10)) + "!";
 
-        QMessageBox::warning(nullptr, "Предупреждение", "При некорректном отображении \nграфика может потребоваться " + error, "Ок");
-        //throw error;
+        QMessageBox::warning(nullptr, "Предупреждение", "При некорректном \nотображении графика" + error, "Ок");
     }
 
 

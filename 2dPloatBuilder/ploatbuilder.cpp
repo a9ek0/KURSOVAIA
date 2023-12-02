@@ -7,7 +7,26 @@ ploatBuilder::ploatBuilder(QWidget *parent)
 {
     ui->setupUi(this);
 
-    plot         = new GraphDrawer();
+/*{
+    QPalette darkPalette;
+    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::WindowText, Qt::white);
+
+    ui->buildButton->setStyleSheet("background-color: darkGray; color: white;");
+
+
+    ui->menubar->setStyleSheet("background-color: rgb(53, 53, 53); color: white;");
+
+    setStyleSheet("background-color: rgb(53, 53, 53); color: white;");
+
+    ui->minRange->setPalette(darkPalette);
+    ui->maxRange->setPalette(darkPalette);
+    ui->function->setPalette(darkPalette);
+    ui->function_2->setPalette(darkPalette);
+
+}*/
+
+    plot            = new GraphDrawer();
     ui->GRAPH->addWidget(plot);
 
     ui->ploatInput->setVisible(false);
@@ -15,7 +34,7 @@ ploatBuilder::ploatBuilder(QWidget *parent)
     ui->label_3->setVisible(false);
 
 
-    intValidator = new QIntValidator();
+    intValidator    = new QIntValidator();
     doubleValidator = new QDoubleValidator();
 
     ui->minRange->setValidator(intValidator);
