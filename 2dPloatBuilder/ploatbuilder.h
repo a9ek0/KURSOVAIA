@@ -73,12 +73,6 @@ private:
     QString errorMsg  = "Ошибка!";
 
 private:
-   // int graphicsColor;
-   // int pointsNum;
-   // bool multyPloats;
-   // double drawStep;
-
-private:
     Parameters        *parametersWindow;
 
 //Ploats

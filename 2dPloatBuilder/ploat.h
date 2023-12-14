@@ -7,7 +7,7 @@ class Ploat
 {
 public:
     Ploat(QString fXFunction = "", QString gXFunction = "", double minBoarder = -10, double maxBoarder = -10, double drawStep = 0.01, int graphicsColor = 0,
-          int pointsNum = 59, bool multyPloats = false);
+          int pointsNum = 50, bool multyPloats = false);
     QString getFXFunction();
     QString getGXFunction();
     double getMinBoarder();
