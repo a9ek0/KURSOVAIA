@@ -11,6 +11,7 @@ QString Parser::toPostfix(QString expression)
     priority["-"] = 1;
     priority["*"] = 2;
     priority["/"] = 2;
+    priority["^"] = 2;
 
     //Preparing an expression
     expression = expression.toLower();
@@ -54,16 +55,14 @@ QString Parser::toPostfix(QString expression)
 
         if(token.contains(QRegularExpression("cos|sin|ctg|tg|log|lg|sqrt|fabs|xp"))) {
             previousToken = token;
-           // if(mathExpr != " "){
             mathExpr = token;
-                mathStack.push(mathExpr);
-            //}
+            mathStack.push(mathExpr);
         }
 
         if(token.contains(QRegularExpression("[(]"))) {
-            if(previousToken == "^")
-                operatorStack.push("^");
-
+            if(previousToken == "^"){
+             //   operatorStack.push("^");
+            }
                 operatorStack.push("(");
                 brace++;
                 previousToken = "(";
@@ -87,10 +86,7 @@ QString Parser::toPostfix(QString expression)
             operatorStack.pop();
             brace--;
 
-            if(!operatorStack.isEmpty() && operatorStack.top() == "^") {
-                normalized_str += operatorStack.pop();
-                normalized_str += ' ';
-            }
+
 
             previousToken = ")";
 
@@ -104,9 +100,10 @@ QString Parser::toPostfix(QString expression)
                 normalized_str += mathExpr;
                 normalized_str += ' ';
                 mathExpr = " ";
+
                 continue;
             }
-        } else if(token.contains(QRegularExpression("[+\\-*/)]"))) {
+        } else if(token.contains(QRegularExpression("[+\\-*/)^]"))) {
             if(previousToken.contains(QRegularExpression("cos|sin|tg|ctg|fabs|sqrt|lg|log|xp|\\+|\\-|\\*|\\/|\\^"))) {
                 error = "Проверьте знаки!";
                 throw error;
@@ -140,21 +137,35 @@ QString Parser::toPostfix(QString expression)
                 if(token == 'p') {
                     normalized_str += QString::number(M_PI);
                     normalized_str += ' ';
+
+                    if(previousToken == '^'){
+                    //    normalized_str += '^';
+                    //    normalized_str += ' ';
+                    }
+
                     previousToken = 'p';
                     continue;
                 } else if(token == 'e') {
                     normalized_str += QString::number(M_E);
                     normalized_str += ' ';
+
+                    if(previousToken == '^'){
+                    //    normalized_str += '^';
+                    //    normalized_str += ' ';
+                    }
+
                     previousToken = 'e';
                     continue;
-                } else if(token == '^') {
-                    if(previousToken.contains(QRegularExpression("[+\\-*/^(]"))) {
-                        error = "Проверьте знаки!";
-                        throw error;
-                    }
-                    previousToken = '^';
-                    continue;
-                } else {
+                } //else if(token == '^') {
+                  //  if(previousToken.contains(QRegularExpression("[+\\-*/^(]"))) {
+                  //      error = "Проверьте знаки!";
+                  //      throw error;
+                  //  }
+                   // operatorStack.push("^");
+                   // previousToken = '^';
+                   // continue;
+            //    }
+            else {
                     normalized_str += token;
                     normalized_str += ' ';
                     if(previousToken == "neg"){
@@ -163,8 +174,8 @@ QString Parser::toPostfix(QString expression)
                         normalized_str += ' ';
                     }
                     if(previousToken == '^'){
-                        normalized_str += '^';
-                        normalized_str += ' ';
+                    //    normalized_str += '^';
+                    //    normalized_str += ' ';
                     }
                 }
                 previousToken = token;
@@ -217,7 +228,7 @@ QString Parser::calculateInBracers(QStringList tokens){
 
 }
 
-QString replaceAllOccurrences(const QString& input, const QString& target, const QString& replacement) {
+QString Parser::replaceAllOccurrences(const QString& input, const QString& target, const QString& replacement) {
     QString result = input;
     int index = result.indexOf(target);
     while (index != -1) {

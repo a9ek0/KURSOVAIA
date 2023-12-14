@@ -23,9 +23,19 @@ double Parameters::getdrawStep()
     return this->drawStep;
 }
 
+bool Parameters::getMultyPloats()
+{
+    return this->multyPloats;
+}
+
 void Parameters::setColor(int color)
 {
     ui->Colors->setCurrentIndex(color);
+}
+
+void Parameters::setMultyPloats(bool multyPloats)
+{
+    this->multyPloats = multyPloats;
 }
 
 void Parameters::setPointsNum(int pointsNum)

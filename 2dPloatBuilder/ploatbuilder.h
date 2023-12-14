@@ -22,12 +22,13 @@
 #include "cardioid.h"
 #include "parameters.h"
 #include "graphdrawer.h"
+#include "ploat.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ploatBuilder; }
 QT_END_NAMESPACE
 
-class ploatBuilder : public QMainWindow
+class ploatBuilder : public QMainWindow, public Ploat
 {
     Q_OBJECT
 
@@ -72,10 +73,10 @@ private:
     QString errorMsg  = "Ошибка!";
 
 private:
-    int graphicsColor = 0;
-    int pointsNum     = 50;
-    bool multyPloats  = 0;
-    double drawStep   = 0.01;
+   // int graphicsColor;
+   // int pointsNum;
+   // bool multyPloats;
+   // double drawStep;
 
 private:
     Parameters        *parametersWindow;

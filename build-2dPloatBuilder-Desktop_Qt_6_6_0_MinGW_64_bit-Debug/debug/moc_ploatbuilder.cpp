@@ -305,6 +305,8 @@ void *ploatBuilder::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSploatBuilderENDCLASS.stringdata0))
         return static_cast<void*>(this);
+    if (!strcmp(_clname, "Ploat"))
+        return static_cast< Ploat*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 

@@ -84,9 +84,9 @@ public:
         if (ploatBuilder->objectName().isEmpty())
             ploatBuilder->setObjectName("ploatBuilder");
         ploatBuilder->setEnabled(true);
-        ploatBuilder->resize(810, 540);
-        ploatBuilder->setMinimumSize(QSize(810, 540));
-        ploatBuilder->setMaximumSize(QSize(810, 540));
+        ploatBuilder->resize(810, 550);
+        ploatBuilder->setMinimumSize(QSize(810, 550));
+        ploatBuilder->setMaximumSize(QSize(810, 550));
         actionSave = new QAction(ploatBuilder);
         actionSave->setObjectName("actionSave");
         actionSave_ploat = new QAction(ploatBuilder);
@@ -117,7 +117,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 239, 481));
+        verticalLayoutWidget->setGeometry(QRect(10, 20, 231, 481));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);

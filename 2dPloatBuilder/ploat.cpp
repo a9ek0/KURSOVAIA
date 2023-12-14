@@ -1,7 +1,7 @@
 #include "ploat.h"
 
-Ploat::Ploat(QString fXFunction = "", QString gXFunction = "", double minBoarder = 0, double maxBoarder = 0,
-             double drawStep = 0, int graphicsColor = 0, int pointsNum = 0, bool multyPloats = false) {
+Ploat::Ploat(QString fXFunction, QString gXFunction, double minBoarder, double maxBoarder,
+             double drawStep, int graphicsColor, int pointsNum, bool multyPloats) {
     this->graphicsColor = graphicsColor;
     this->multyPloats   = multyPloats;
     this->fXFunction    = fXFunction;

@@ -16,7 +16,9 @@ public:
     int getColor();
     int getPointsNum();
     double getdrawStep();
+    bool getMultyPloats();
     void setColor(int color);
+    void setMultyPloats(bool multyPloats);
     void setPointsNum(int pointsNum);
     void setDrawStep(double drawStep);
     ~Parameters();
@@ -34,6 +36,7 @@ protected:
     int color       = 0;
     int pointsNum   = 0;
     double drawStep = 0;
+    bool multyPloats  = 0;
 };
 
 #endif // PARAMETERS_H

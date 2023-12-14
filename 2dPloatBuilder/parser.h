@@ -23,7 +23,7 @@
 
 #include "expression.h"
 
-QString replaceAllOccurrences(const QString& input, const QString& target, const QString& replacement);
+
 
 //class Parser : public Expression
 class Parser
@@ -35,7 +35,7 @@ public:
     Expression* getFXExpression() const;
     Expression* getGXExpression() const;
     void validateToken(QString token);
-
+    QString replaceAllOccurrences(const QString& input, const QString& target, const QString& replacement);
 
 protected:
     std::map<QString, unsigned> priority;

@@ -57,7 +57,7 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     QString error = "";
 
     std::vector<double>  yVector(pointsNum / drawStep);
-    yScaling      = 0;
+    yScaling             = 0;
     double ytmp          = 0;
     double y             = 0;
     maxYBoarder          = -__DBL_MAX__;
@@ -66,8 +66,6 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
     xScaling      = fabs((width  - 20)/ ((fabs(maxBoarder) + fabs(minBoarder))));
     double scaledX       = 0;
     double xtmp          = minBoarder;
-
-    //double indent        = 0;
 
     //Calculating X
     indentX = minBoarder > 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : minBoarder < 0 && maxBoarder < 0 ? fabs(fabs(maxBoarder) - fabs(minBoarder)) / 10 : (fabs(maxBoarder) + fabs(minBoarder)) / 10;
@@ -158,8 +156,6 @@ void GraphDrawer::drawPlot(QLayout *ploatLayout, Function *func, double drawStep
         ytmp = y;
 
     }
-
-    //КОСТЫЛЬ ЛЮТЫЙ
 
     pen.setColor(Qt::white);
     pen.setWidth(20);

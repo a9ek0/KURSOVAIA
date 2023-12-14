@@ -1,30 +1,12 @@
 #include "ploatbuilder.h"
 #include "ui_ploatbuilder.h"
 
+
 ploatBuilder::ploatBuilder(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ploatBuilder)
 {
     ui->setupUi(this);
-
-/*{
-    QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::WindowText, Qt::white);
-
-    ui->buildButton->setStyleSheet("background-color: darkGray; color: white;");
-
-
-    ui->menubar->setStyleSheet("background-color: rgb(53, 53, 53); color: white;");
-
-    setStyleSheet("background-color: rgb(53, 53, 53); color: white;");
-
-    ui->minRange->setPalette(darkPalette);
-    ui->maxRange->setPalette(darkPalette);
-    ui->function->setPalette(darkPalette);
-    ui->function_2->setPalette(darkPalette);
-
-}*/
 
     plot            = new GraphDrawer();
     ui->GRAPH->addWidget(plot);
@@ -44,6 +26,12 @@ ploatBuilder::ploatBuilder(QWidget *parent)
     setMouseTracking(true);
     ui->centralwidget->setMouseTracking(true);
     ui->mouseLabel->setMouseTracking(true);
+
+  /*QPixmap bkgnd("C:/Users/Alexander/Desktop/1669096676_photochki-pro-p-tyanki-v-trusikakh-erotika-instagram-2.jpg");
+    bkgnd = bkgnd.scaled(QSize(810, 550), Qt::KeepAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette); */
 }
 
 void ploatBuilder::mouseMoveEvent(QMouseEvent *event)
@@ -116,14 +104,9 @@ void ploatBuilder::on_buildButton_clicked()
         plot->drawPlot(ui->GRAPH, func, drawStep, pointsNum, multyPloats);
     } catch(QString &error){
         QMessageBox::critical(nullptr, "Ошибка", error); return;
+    } catch(...) {
+        QMessageBox::critical(nullptr, "Ошибка", "Неизвестная ошибка!"); return;
     }
-
-//    //M
-//    if(func->getFXExpression()->getExpression() == " "){
-//        qDebug() << "1";
-//        QMessageBox::critical(nullptr, "Ошибка", errorMsg);
-//        return;
-//    }
 
     ui->GRAPH->addWidget(plot);
 
@@ -134,31 +117,30 @@ void ploatBuilder::on_buildButton_clicked()
 
 void ploatBuilder::on_actionSave_triggered()
 {
-    QString currentFile;
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     QFile file(fileName);
     if(!file.open(QFile::WriteOnly | QFile::Text)){
         QMessageBox::warning(this, "Warning", "Cannot save file : " + file.errorString());
         return;
     }
-    currentFile = fileName;
-    setWindowTitle(fileName);
-    plot->saveImage(currentFile + ".png");
+
+    plot->saveImage(fileName + ".png");
     file.close();
 }
 
 
 void ploatBuilder::on_actionSave_ploat_triggered()
 {
-    QString currentFile;
     QString fileName = QFileDialog::getSaveFileName(this, "Save as");
     QFile file(fileName + ".pb");
     if(!file.open(QFile::WriteOnly | QFile::Text)){
         QMessageBox::warning(this, "Warning", "Cannot save file : " + file.errorString());
         return;
     }
-    currentFile = fileName;
-    setWindowTitle(fileName);
+
+    QFileInfo currentFile(fileName);
+    setWindowTitle(currentFile.baseName());
+
     QTextStream out(&file);
     out << ui->function->text() << '\n' << ui->minRange->text() << '\n' << ui->maxRange->text()
         << '\n' << this->graphicsColor << '\n' << ((ui->multyPloats->checkState() == Qt::Checked) ? 1 : 0)
@@ -169,15 +151,15 @@ void ploatBuilder::on_actionSave_ploat_triggered()
 
 void ploatBuilder::on_actionopen_triggered()
 {
-    QString currentFile;
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file", QString(), "My Files (*.pb)");
     QFile file(fileName);
     if(!file.open(QIODevice::ReadOnly | QFile::Text)){
         QMessageBox::warning(this, "Warning", "Cannot open file : " + file.errorString());
         return;
     }
-    currentFile = fileName;
-    setWindowTitle(fileName);
+
+    QFileInfo currentFile(fileName);
+    setWindowTitle(currentFile.baseName());
 
     QTextStream in(&file);
 

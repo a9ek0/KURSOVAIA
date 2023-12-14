@@ -16,8 +16,6 @@ double Function::calculateFunction(double x, const QString &expression)
     QStringList tokens   = expression.split(re);
     tokens.removeAll("");
 
-    QStack<QString> operatorStack;
-
     QStack<QString> variablesStack;
     variablesStack.push(0);
 
